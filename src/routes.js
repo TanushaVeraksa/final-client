@@ -1,8 +1,9 @@
 import Home from './pages/Home';
-import Movies from './pages/Movies';
+import Review from './pages/Review';
 import PersonalArea from './pages/PersonalArea';
 import Authorization from './pages/Authorization';
-import {HOME_ROUTE, REGISTRATION_ROUTE, AUTH_ROUTE, MOVIES_ROUTE, PERSONAL_ROUTE} from './utils/consts'
+import Admin from './pages/Admin';
+import {HOME_ROUTE, REGISTRATION_ROUTE, LOGIN_ROUTE, REVIEW_ROUTE, PERSONAL_ROUTE, ADMIN_ROUTE} from './utils/consts'
 
 export const unauthRouter = [
     {
@@ -10,15 +11,15 @@ export const unauthRouter = [
         Component: <Home/>
     },
     {
-        path: MOVIES_ROUTE,
-        Component: <Movies/>
+        path: REVIEW_ROUTE,
+        Component: <Review/>
     },
     {
-        path: REGISTRATION_ROUTE,
+        path: LOGIN_ROUTE,
         Component: <Authorization/>
     },
     {
-        path: AUTH_ROUTE,
+        path: REGISTRATION_ROUTE,
         Component: <Authorization/>
     },
 ]
@@ -28,8 +29,9 @@ export const authRouter = [
         path: PERSONAL_ROUTE,
         Component: <PersonalArea/>
     },
+    {
+        path: ADMIN_ROUTE,
+        Component: <Admin/>
+    },
 ]
 
-export const adminRouter = [
-
-]

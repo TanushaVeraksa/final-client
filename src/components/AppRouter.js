@@ -1,17 +1,17 @@
 import {Route, Routes} from 'react-router-dom'
-import {unauthRouter, authRouter, adminRouter} from '../routes'
+import {unauthRouter, authRouter} from '../routes'
+import { useContext } from 'react';
+import {Context} from '../index'
 
 const AppRouter = () => {
-  
+    const {user} = useContext(Context);
+    console.log(user)
     return (
       <Routes>
         {unauthRouter.map(({path, Component}) => 
               <Route path={path} element={Component}/>
           )}
-        {authRouter.map(({path, Component}) => 
-              <Route path={path} element={Component}/>
-          )}
-        {adminRouter.map(({path, Component}) => 
+        {user.isAuth && authRouter.map(({path, Component}) => 
               <Route path={path} element={Component}/>
           )}
       </Routes>
