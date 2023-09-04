@@ -6,14 +6,37 @@ import Button from 'react-bootstrap/esm/Button';
 import Row from 'react-bootstrap/Row';
 import { NavLink, useLocation, useNavigate} from 'react-router-dom';
 import { REGISTRATION_ROUTE, LOGIN_ROUTE } from '../utils/consts';
+import { registration, login } from '../http/userAPI';
+import {observer} from 'mobx-react-lite'
+import { Context } from '..';
 
-function Authorization() {
+
+const Authorization = observer(() => {
+  const {user} = useContext(Context);
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
   const location = useLocation();
-  const navigation = useNavigate();
   const isLogin = location.pathname === LOGIN_ROUTE;
+
+  const click = async() => {
+    try {
+      let data;
+      if(isLogin) {
+        data = await login(email, password);
+        if(data.role === 'Admin') {
+          user.setIsAdmin(true);
+        }
+      } else {
+        data = await registration(email, name, password);
+      }
+      user.setUser(data);
+      user.setIsAuth(true);
+    } catch(e) {
+      alert(e.response.data.message)
+    }
+  }
+
   return (
     <Container
       className='d-flex justify-content-center align-items-center'
@@ -55,8 +78,9 @@ function Authorization() {
                 <Button 
                 className='mt-3 align-self-end w-50 m-auto' 
                 variant={'outline-success'}
+                onClick = {click}
                 >
-                  Login
+                 {isLogin ? 'Login' : 'Register'} 
                 </Button>
               </Row>
 
@@ -64,6 +88,6 @@ function Authorization() {
       </Card>
     </Container>
   )
-}
+})
 
 export default Authorization
