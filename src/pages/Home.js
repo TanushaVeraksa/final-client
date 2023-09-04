@@ -1,13 +1,18 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import {observer} from 'mobx-react-lite'
 import { Context } from '../index'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import ReviewItem from '../components/ReviewItem';
 import Card from 'react-bootstrap/Card';
+import {dateReview, ratindReview} from '../http/reviewAPI';
 
 const Home = observer(() => {
-const {review} = useContext(Context)
+    const {review} = useContext(Context)
+    useEffect(() => {
+        dateReview().then(data => review.setLastReviews(data))
+        ratindReview().then(data => review.setTopReviews(data))
+    }, [])
   return (
     <Container>
     <Row>

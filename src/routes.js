@@ -11,7 +11,7 @@ export const unauthRouter = [
         Component: <Home/>
     },
     {
-        path: REVIEW_ROUTE,
+        path: REVIEW_ROUTE + '/:id',
         Component: <Review/>
     },
     {
@@ -32,6 +32,10 @@ export const authRouter = [
     {
         path: ADMIN_ROUTE,
         Component: <Admin/>
+    },
+    {
+        path: REVIEW_ROUTE + '/:id',
+        Component: <Review/>
     },
 ]
 
