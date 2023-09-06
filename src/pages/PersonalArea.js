@@ -18,7 +18,6 @@ const PersonalArea = observer(() => {
     const [markdown, setMarkdown] = useState();
     const [title, setTitle] = useState();
     const [piece, setPiece] = useState();
-
     useEffect(() => {
        personalReviews(id).then(data => review.setPersonalReview(data))
     }, [])
