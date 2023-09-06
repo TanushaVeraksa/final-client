@@ -11,8 +11,8 @@ import Rating from '@mui/material/Rating';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { fetchOneReview, putRatingReview, checkLike, putLikeReview } from '../http/reviewAPI';
-import jwt_decode from 'jwt-decode';
-
+import { red } from '@mui/material/colors';
+import ReactMarkdown from 'react-markdown';
 
 const Review = observer(() => {
   const [value, setValue] = useState(0);
@@ -21,13 +21,11 @@ const Review = observer(() => {
   const {user} = useContext(Context);
   const {review} = useContext(Context);
   useEffect(() => {
-    console.log(user.user.id)
     fetchOneReview(id).then(data => {
       review.setReview(data)
       setValue(data.rating)
     })
     checkLike(user.user.id, id).then(data => {
-      console.log(data)
       setLike(data);
     })
   }, [])
@@ -40,7 +38,6 @@ const Review = observer(() => {
   const handleLike = () => {
     setLike((prev) => !prev)
     putLikeReview(user.user.id, id).then(data => {
-      console.log(data)
       review.setReview(data)}
     )
   }
@@ -65,12 +62,12 @@ const Review = observer(() => {
           />
           </div>
           <Card.Text>Author grade: {review.review.grade}</Card.Text>
-          <Card.Text>{review.review.description}</Card.Text>
+          <ReactMarkdown>{review.review.description}</ReactMarkdown>
           <div className='d-flex'>
             Likes: {review.review.likes ? review.review.likes.length : 0}
             <div>
               {like ? 
-              <FavoriteIcon style={{cursor: 'pointer'}} onClick={handleLike}/> 
+              <FavoriteIcon sx={{ color: red[500] }} style={{cursor: 'pointer'}} onClick={handleLike}/> 
               : 
               <FavoriteBorderIcon style={{cursor: 'pointer'}} onClick={handleLike}/>}
               </div>

@@ -5,6 +5,8 @@ export default class ReviewStore {
         this._lastReviews = [];
         this._topReviews = [];
         this._review = [];
+        this._personalReview = [];
+        this._selectedReview = {};
         makeAutoObservable(this);
     }
 
@@ -20,6 +22,14 @@ export default class ReviewStore {
     this._review = review;
    }
 
+   setPersonalReview(review) {
+    this._personalReview = review;
+   }
+
+   setSelectedReview(review) {
+    this._selectedReview = review;
+   }
+
    get lastReviews() {
     return this._lastReviews;
    }
@@ -30,5 +40,13 @@ export default class ReviewStore {
 
    get review() {
     return this._review;
+   }
+
+   get personalReview() {
+    return this._personalReview;
+   }
+
+   get selectedReview() {
+    return this._selectedReview;
    }
 }

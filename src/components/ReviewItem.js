@@ -10,7 +10,7 @@ function ReviewItem({review}) {
     return (
         <Col md={3} onClick={() => navigation(REVIEW_ROUTE + '/' + review._id)}>
             <Card className='m-auto' style={{cursor: 'pointer', width:150}} border={'light'}>
-                <Image width={150} height={200} src={review.img} rounded />
+                <Image className='img-responsive' src={review.img} rounded />
                 <div>
                     <div>{review.title} rating: {review.rating}</div>
                     <div>tag: {review.tag}</div>

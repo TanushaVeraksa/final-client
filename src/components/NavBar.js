@@ -28,7 +28,7 @@ const NavBar = observer( () => {
                     className='me-2'
                     >Admin Panel</Button>}
                 <Button variant={'outline-light'}>
-                    <NavLink style={{color: 'white', textDecoration: 'none' }} to={PERSONAL_ROUTE}>Personal Area</NavLink>
+                    <NavLink style={{color: 'white', textDecoration: 'none' }} to={PERSONAL_ROUTE + '/' + user.user.id}>Personal Area</NavLink>
                 </Button>
                 <Button 
                     variant={'outline-light'} 
