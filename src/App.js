@@ -14,13 +14,11 @@ const App = observer(() => {
       if(localStorage.getItem('token')) {
         user.setUser(jwt_decode(localStorage.getItem('token')));
         user.setIsAuth(true);
-        check().then(data=> {
-          if(localStorage.getItem('access')) {
-            user.setIsAdmin(true);
-          } else {
-            user.setIsAdmin(false);
-          }
-        })
+        if(jwt_decode(localStorage.getItem('token')).role === 'Admin') {
+          user.setIsAdmin(true);
+        } else {
+          user.setIsAdmin(false);
+        }
       } else {
         user.setUser(false);
         user.setIsAuth(false);

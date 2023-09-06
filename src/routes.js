@@ -22,11 +22,6 @@ export const unauthRouter = [
         path: REGISTRATION_ROUTE,
         Component: <Authorization/>
     },
-    {
-        path: PERSONAL_ROUTE + '/:id',
-        Component: <PersonalArea/>
-    },
-    
 ]
 
 export const authRouter = [
