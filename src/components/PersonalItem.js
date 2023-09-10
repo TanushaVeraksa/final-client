@@ -6,7 +6,7 @@ import Image from 'react-bootstrap/Image';
 import {observer} from 'mobx-react-lite';
 import {Context} from '../index';
 
-const ReviewItem = observer(({personal}) => {
+const ReviewItem = observer(() => {
     const {review} = useContext(Context);
     return (
         <Row>
