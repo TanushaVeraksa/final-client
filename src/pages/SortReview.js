@@ -1,9 +1,9 @@
 import React from 'react'
 
-function CreateReview() {
+function SortReview() {
   return (
     <div>CreateReview</div>
   )
 }
 
-export default CreateReview
+export default SortReview

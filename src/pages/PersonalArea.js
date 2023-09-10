@@ -42,7 +42,7 @@ const PersonalArea = observer(() => {
                 setGrade(data.grade);
                 setTag(data.tag);
                 setMarkdown(data.description);
-                review.setSelectedImg({img: data.img});
+                review.setSelectedImg({img: data.img, publicId: data.publicId});
             })
         }
     }, [review, review.selectedReview])

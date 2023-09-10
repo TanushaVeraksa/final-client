@@ -26,7 +26,8 @@ const ImageUpload = observer(() => {
 
 
   const onRemoveImage = async id => {
-    destroyImage(review.selectedImg.public_id)
+    console.log(review.selectedImg)
+    destroyImage(review.selectedImg.publicId)
       .then(data => console.log(data))
       .catch(err => console.log(err))
     setFiles(prev => prev.filter(i => i.id !== id));
