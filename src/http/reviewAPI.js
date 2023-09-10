@@ -1,6 +1,5 @@
 import {$host} from "./index";
 
-
 export const createReview = async(title, piece, group, tag, description, grade, img, publicId, userId) => {
     const {data} = await $host.post('api/review/create', {title, piece, group, tag, description, grade, img, publicId, userId })
     return data;
@@ -62,7 +61,7 @@ export const putRatingReview = async(reviewId, userId, grade) => {
 }
 
 export const personalReviews = async(id, group, dateCreation, grade) => {
-    const {data} = await $host.get('api/review/personal/' + id, null, {params: {
+    const {data} = await $host.get('api/personal/' + id, null, {params: {
         group,
         dateCreation,
         grade
