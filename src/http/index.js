@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 const $host = axios.create({
-    baseURL: 'https://final-server-lyart.vercel.app'
+    baseURL: 'https://final-server-lyart.vercel.app/'
 })
 
 const $authHost = axios.create({
-    baseURL: 'https://final-server-lyart.vercel.app'
+    baseURL: 'https://final-server-lyart.vercel.app/'
 })
 
 const authInterceptor = config => {

@@ -22,7 +22,7 @@ export const updateReview = async(id, title, piece, group, tag, description, gra
 }
 
 export const destroyImage = async(publicId) => {
-    const data = await $host.post('/api/review/destroyImg', {publicId});
+    const data = await $host.post('api/review/destroyImg', {publicId});
     return data;
 }
 
