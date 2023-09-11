@@ -16,6 +16,7 @@ import {GROUPS} from '../utils/consts';
 import Button from 'react-bootstrap/Button';
 import {useNavigate} from 'react-router-dom';
 import {REVIEW_ROUTE} from '../utils/consts'
+import SortReview from './SortReview';
 
 const PersonalArea = observer(() => {
     const {review} = useContext(Context)
@@ -172,6 +173,7 @@ const PersonalArea = observer(() => {
             <ListGroup.Item onClick={openReview} style={{cursor: 'pointer'}}>Open in preview mode</ListGroup.Item>
             <ListGroup.Item onClick={deleteOneReview} style={{cursor: 'pointer'}}>Delete</ListGroup.Item>
         </ListGroup>
+        <SortReview/>
         <PersonalItems/>
   </Container>
   )
