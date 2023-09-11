@@ -55,23 +55,36 @@ const Review = observer(() => {
           <Card.Text>Group: {review.review.group}</Card.Text>
           <div className='d-flex'>
             <Card.Text className='pe-4'>Rating: {value}</Card.Text>
-            <Rating
-            name="simple-controlled"
-            value={value}
-            onChange={handleRating}
-          />
+            {user.isAuth ? 
+              <Rating
+              name="simple-controlled"
+              value={value}
+              onChange={handleRating}
+            />
+            :
+            <Rating name="read-only" value={value} readOnly />
+            }
           </div>
           <Card.Text>Author grade: {review.review.grade}</Card.Text>
           <ReactMarkdown>{review.review.description}</ReactMarkdown>
-          <div className='d-flex'>
+          {user.isAuth ? 
+            <div className='d-flex'>
             Likes: {review.review.likes ? review.review.likes.length : 0}
             <div>
               {like ? 
               <FavoriteIcon sx={{ color: red[500] }} style={{cursor: 'pointer'}} onClick={handleLike}/> 
               : 
               <FavoriteBorderIcon style={{cursor: 'pointer'}} onClick={handleLike}/>}
-              </div>
+            </div>
           </div>
+          : 
+          <div className='d-flex'>
+          Likes: {review.review.likes ? review.review.likes.length : 0}
+            <div>
+              <FavoriteBorderIcon/>
+            </div>
+          </div>
+          }
           <Card.Text>Date of creation: {review.review.dateCreation}</Card.Text>
         </Card.Body>
         </Card>
