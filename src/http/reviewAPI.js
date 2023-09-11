@@ -61,10 +61,10 @@ export const putRatingReview = async(reviewId, userId, grade) => {
 }
 
 export const personalReviews = async(id, group, dateCreation, grade) => {
-    const {data} = await $host.get('api/personal/' + id, null, {params: {
-        group,
-        dateCreation,
-        grade
+    const {data} = await $host.get('api/personal/' + id, {params: {
+        group: group,
+        dateCreation: dateCreation,
+        grade: grade
     }});
     return data;
 }
