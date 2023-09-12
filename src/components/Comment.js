@@ -10,7 +10,6 @@ import {$host} from "../http/index";
 
 
 const Comment = observer((props) => {
-    const [message, setMessage] = useState([]);
     const [value, setValue] = useState();
     const {review} = props;
     const [comments, setComments] = useState([]);
@@ -29,7 +28,7 @@ const Comment = observer((props) => {
         try {
             const {data} = await $host.get('api/comment/get-comment');
             console.log(data)
-            setMessage(prev=> [data, ...prev])
+            setComments(prev=> [...prev, data])
             await subscribe();
         } catch (e) {
             setTimeout(() => {
@@ -58,14 +57,6 @@ const Comment = observer((props) => {
     
     {comments.map(comment => 
     <Card key={comment._id}>
-        <Card.Body className='p-2'>
-            <Card.Subtitle className="mb-1 text-muted">{comment.userEmail}</Card.Subtitle>
-            <Card.Text>{comment.message}</Card.Text>
-        </Card.Body>
-    </Card>
-    )}
-    {message.map(comment => 
-        <Card key={comment._id}>
         <Card.Body className='p-2'>
             <Card.Subtitle className="mb-1 text-muted">{comment.userEmail}</Card.Subtitle>
             <Card.Text>{comment.message}</Card.Text>
