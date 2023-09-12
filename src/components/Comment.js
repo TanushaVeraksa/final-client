@@ -13,7 +13,7 @@ const Comment = observer((props) => {
     const [value, setValue] = useState();
     const {review} = props;
     const [comments, setComments] = useState([]);
-    const TIMER = 3000;
+    const TIMER = 500;
     const {user} = useContext(Context);
 
     useEffect(() => {
