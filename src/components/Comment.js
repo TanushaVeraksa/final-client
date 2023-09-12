@@ -39,12 +39,12 @@ const Comment = observer((props) => {
     }
     const sendMessage = async() => {
         //sendComment(value, user.user.email, review).then(data => console.log(data))
-        const {data} = await $host.post('api/comment/new-comment', {
+        await $host.post('api/comment/new-comment', {
           message: value, 
           userEmail: user.user.email, 
           reviewId: review 
         })
-        setComments(prev=> [...prev, data])
+        //setComments(prev=> [...prev, data])
     }
 
     return (
