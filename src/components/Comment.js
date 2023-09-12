@@ -18,16 +18,12 @@ const Comment = observer((props) => {
 
     useEffect(() => {
         getComments(review).then(data=> setComments(data))
-    }, [])
-
-    useEffect(() => {
         subscribe()
     }, [])
 
     const subscribe = async() => {
         try {
             const {data} = await $host.get('api/comment/get-comment');
-            console.log(data)
             setComments(prev=> [...prev, data])
             await subscribe();
         } catch (e) {
@@ -36,8 +32,13 @@ const Comment = observer((props) => {
             }, TIMER)
         }
     }
-    const sendMessage = () => {
-        sendComment(value, user.user.email, review).then(data => console.log(data))
+    const sendMessage = async() => {
+        //sendComment(value, user.user.email, review).then(data => console.log(data))
+        await $host.post('api/comment/new-comment', {
+          message: value, 
+          userEmail: user.user.email, 
+          reviewId: review 
+        })
     }
 
     return (
