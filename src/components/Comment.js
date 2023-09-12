@@ -21,12 +21,18 @@ const Comment = observer((props) => {
         subscribe()
     }, [])
 
+
+    useEffect(() => {
+        subscribe()
+    }, [])
+
     const subscribe = async() => {
         try {
             const {data} = await $host.get('api/comment/get-comment');
             setComments(prev=> [...prev, data])
             await subscribe();
         } catch (e) {
+            console.log(e)
             setTimeout(() => {
                 subscribe();
             }, TIMER)
