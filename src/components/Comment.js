@@ -18,7 +18,6 @@ const Comment = observer((props) => {
 
     useEffect(() => {
         getComments(review).then(data=> setComments(data))
-        subscribe()
     }, [])
 
 
@@ -27,28 +26,25 @@ const Comment = observer((props) => {
     }, [])
 
     const subscribe = async() => {
-        // try {
-        //     const {data} = await $host.get('api/comment/get-comment');
-        //     setComments(prev=> [...prev, data])
-        //     await subscribe();
-        // } catch (e) {
-        //     console.log(e)
-        //     setTimeout(() => {
-        //         subscribe();
-        //     }, TIMER)
-        // }
-        const eventSource = new EventSource('https://final-server-lyart.vercel.app/api/comment/connect')
-        eventSource.onmessage = function(event) {
-            console.log(event.data)
+        try {
+            const {data} = await $host.get('api/comment/get-comment');
+            setComments(prev=> [...prev, data])
+            await subscribe();
+        } catch (e) {
+            console.log(e)
+            setTimeout(() => {
+                subscribe();
+            }, TIMER)
         }
     }
     const sendMessage = async() => {
         //sendComment(value, user.user.email, review).then(data => console.log(data))
-        await $host.post('api/comment/new-comment', {
+        const {data} = await $host.post('api/comment/new-comment', {
           message: value, 
           userEmail: user.user.email, 
           reviewId: review 
         })
+        setComments(prev=> [...prev, data])
     }
 
     return (
