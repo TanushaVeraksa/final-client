@@ -13,6 +13,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { fetchOneReview, putRatingReview, checkLike, putLikeReview } from '../http/reviewAPI';
 import { red } from '@mui/material/colors';
 import ReactMarkdown from 'react-markdown';
+import Comment from '../components/Comment';
 
 const Review = observer(() => {
   const [value, setValue] = useState(0);
@@ -90,6 +91,7 @@ const Review = observer(() => {
         </Card>
         </Col>
       </Row>
+       <Comment review = {id}/>
     </Container>
   )
 })
