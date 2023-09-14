@@ -26,6 +26,10 @@ export const unauthRouter = [
         path: PERSONAL_ROUTE + '/:id',
         Component: <PersonalArea/>
     },
+    {
+        path: ADMIN_ROUTE,
+        Component: <Admin/>
+    },
 ]
 
 export const authRouter = [
