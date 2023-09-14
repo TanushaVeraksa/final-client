@@ -11,3 +11,12 @@ export const getComments = async(reviewId) => {
     }})
     return data;
 }
+
+export const getComment = async(curr, reviewId, userEmail) => {
+    const {data} = await $host.get('api/comment/get-comment', {params: {
+        userEmail: userEmail,
+        curr: curr,
+        reviewId: reviewId
+    }})
+    return data;
+}

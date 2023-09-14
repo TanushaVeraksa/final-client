@@ -3,56 +3,44 @@ import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import {sendComment, getComments} from '../http/commentAPI'
+import {sendComment, getComments, getComment} from '../http/commentAPI'
 import {Context} from '../index'
 import {observer} from 'mobx-react-lite'
-import {$host} from "../http/index";
-
 
 const Comment = observer((props) => {
     const [value, setValue] = useState();
     const {review} = props;
     const [comments, setComments] = useState([]);
-    const TIMER = 500;
+    const TIMER = 3000;
     const {user} = useContext(Context);
+    const {comment} = useContext(Context);
 
     useEffect(() => {
-        getComments(review).then(data=> setComments(data))
+        getComments(review).then(data=> {
+            setComments(data)
+            comment.setReviewComments(data)
+        })
     }, [])
 
-
-    useEffect(() => {
-        subscribe()
-    }, [])
 
     const subscribe = async() => {
-        const config = {
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-        
-            },
-          };
         try {
-            const {data} = await $host.get('api/comment/message', config);
-            setComments(prev=> [...prev, data])
-            await subscribe();
+            getComment(comment.reviewComments, review, user.user.email)
+                .then(data => console.log(data))
+                .catch(err => subscribe())
+                console.log(comment.reviewComments)
+            setTimeout(() => {
+                subscribe();
+            }, TIMER)
         } catch (e) {
-            console.log(e)
             setTimeout(() => {
                 subscribe();
             }, TIMER)
         }
     }
 
-    // export const sendComment = async(message, userEmail, reviewId) => {
-    //     const {data} = await $host.post('api/comment/new-comment', {message, userEmail, reviewId})
-    //     return data;
-    // }
-    const sendMessage = async() => {
-        //sendComment(value, user.user.email, review).then(data => console.log(data))
-        const {data} = await $host.post('api/comment/message', {message: value, userEmail: user.user.email, reviewId: review})
-        console.log(data)
+    const sendMessage = () => {
+        sendComment(value, user.user.email, review).then(data => setComments(prev => [...prev, data]))
     }
 
     return (

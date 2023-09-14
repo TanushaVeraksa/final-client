@@ -2,31 +2,17 @@ import {makeAutoObservable} from 'mobx'
 
 export default class CommentStore {
     constructor() {
-        this._isAuth = false;
-        this._isAdmin = false;
-        this._user = {};
+        this._reviewComments = [];
         makeAutoObservable(this);
     }
 
-    setIsAuth(bool) {
-        this._isAuth = bool;
+    setReviewComments(comments) {
+        this._reviewComments = comments;
     }
-    setIsAdmin(bool) {
-        this._isAdmin = bool;
-    }
-    setUser(user) {
-        this._user = user;
-    }
-    setSelectedMove(select) {
-        this._selectMove = select;
-    }
-    get isAuth() {
-        return this._isAuth;
-    }
-    get isAdmin() {
-        return this._isAdmin
-    }
-    get user() {
-        return this._user;
+    addReviewComments(comment) {
+        this._reviewComments.push(comment);
+       }
+    get reviewComments() {
+        return this._reviewComments;
     }
 }

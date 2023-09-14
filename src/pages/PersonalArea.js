@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import PersonalItems from '../components/PersonalItem';
-import {personalReviews, fetchPieceTitles, createReview, deleteReview, oneReview, updateReview} from '../http/reviewAPI';
+import {personalReviews, fetchPieceTitles, createReview, deleteReview, oneReview, updateReview, getTags} from '../http/reviewAPI';
 import { useParams } from 'react-router-dom';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Form from 'react-bootstrap/Form';
@@ -17,21 +17,30 @@ import Button from 'react-bootstrap/Button';
 import {useNavigate} from 'react-router-dom';
 import {REVIEW_ROUTE} from '../utils/consts'
 import SortReview from './SortReview';
+import AdminBreadcrumbs from '../components/AdminBreadcrumbs';
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
 
 const PersonalArea = observer(() => {
     const {review} = useContext(Context)
+    const {tag} = useContext(Context)
+    const {user} = useContext(Context)
     const {id} = useParams();
     const [markdown, setMarkdown] = useState('');
     const [title, setTitle] = useState('');
     const [piece, setPiece] = useState(review.pieceTitles[0]);
     const [group, setGroup] = useState('Book');
     const [grade, setGrade] = useState(0);
-    const [tag, setTag] = useState('');
+    const [tagReview, setTagReview] = useState([]);
+    const [tags, setTags] = useState([]);
+    const [inputTag, setInputTag] = useState();
+
     const navigation = useNavigate ();
     
     useEffect(() => {
        personalReviews(id).then(data => review.setPersonalReview(data))
        fetchPieceTitles().then(data => review.setPieseTitles(data))
+       getTags().then(data => setTags(data))
     }, [])
 
     useEffect(() => {
@@ -41,16 +50,35 @@ const PersonalArea = observer(() => {
                 setPiece(data.piece);
                 setGroup(data.group);
                 setGrade(data.grade);
-                setTag(data.tag);
+                setTagReview(data.tag);
                 setMarkdown(data.description);
                 review.setSelectedImg({img: data.img, publicId: data.publicId});
             })
         }
     }, [review, review.selectedReview])
 
+    const addedTag = () => {
+        let resTags = [];
+        if(tagReview && inputTag) {
+            const resTag = tagReview.split(',');
+            const resInput = inputTag.split(' ');
+            console.log(resTag, resInput)
+            resTags = resTag.concat(resInput);
+        } else if(tagReview) {
+            const resTag = tagReview.split(',');
+            resTags = resTag
+        } else {
+            const resInput = inputTag.split(' ');
+            resTags = resInput;
+        }
+        return resTags.map(elem => elem.replace(/\s/g, '')).filter(elem => elem !== ' ');
+    }
+
     const addReview = () => { 
+        const resTags = addedTag();
+        tag.addTags(resTags);
         if(review.selectedImg) {
-        createReview(title, piece, group, tag, markdown, grade, review.selectedImg.img, review.selectedImg.publicId, id).then(data => review.addPersonalReview(data.review));
+        createReview(title, piece, group, resTags, markdown, grade, review.selectedImg.img, review.selectedImg.publicId, id).then(data => review.addPersonalReview(data.review));
         cleanReview();
     } 
     }
@@ -62,7 +90,9 @@ const PersonalArea = observer(() => {
         navigation(REVIEW_ROUTE + '/' + review.selectedReview._id)
     }
     const updateOneReview = () => {
-        updateReview(review.selectedReview._id, title, piece, group, tag, markdown, grade, review.selectedImg.img, review.selectedImg.publicId)
+        const resTags = addedTag();
+        tag.addTags(resTags);
+        updateReview(review.selectedReview._id, title, piece, group, resTags, markdown, grade, review.selectedImg.img, review.selectedImg.publicId)
         .then(data => review.updatePersonalReview(data))
         cleanReview();
     }
@@ -71,13 +101,14 @@ const PersonalArea = observer(() => {
         setPiece('');
         setGroup('');
         setGrade(0);
-        setTag('');
+        setTagReview('');
         setMarkdown('');
         review.setSelectedImg({});
         review.setSelectedReview({});
     }
   return (
     <Container>
+    {user.isAdmin && <AdminBreadcrumbs/>}
         <Form>
         <Row className="mb-2">
         <Form.Group as={Col} md="4" controlId="validationCustom01">
@@ -100,11 +131,29 @@ const PersonalArea = observer(() => {
             </Form.Select>
         </Form.Group>
         <Form.Group as={Col} md="4" controlId="validationCustom02">
-            <Form.Label>Tag</Form.Label>
-            <Form.Control
-                required
-                value={tag} 
-                onChange={e=> setTag(e.target.value)}
+            <Form.Label className='mb-1'>Tag</Form.Label>
+            <Autocomplete
+            multiple
+            id="size-small-standard-multi"
+            size="small"
+            options={tags}
+            freeSolo
+            getOptionLabel={(option) => option}
+            onChange={(event, newValue) => setTagReview(newValue + ' ')}
+            inputValue={inputTag}
+            
+            onInputChange={(event, newInputValue) => {
+            setInputTag(newInputValue);
+            }}
+            
+            renderInput={(params) => (
+            <TextField
+                {...params}
+                variant="standard"
+                label="Select a tag or enter a new"
+                placeholder="Tags"
+            />
+            )}
             />
         </Form.Group>
         </Row>

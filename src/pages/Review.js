@@ -10,7 +10,7 @@ import Card from 'react-bootstrap/Card';
 import Rating from '@mui/material/Rating';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { fetchOneReview, putRatingReview, checkLike, putLikeReview } from '../http/reviewAPI';
+import { fetchOneReview, putRatingReview, checkLike, putLikeReview} from '../http/reviewAPI';
 import { red } from '@mui/material/colors';
 import ReactMarkdown from 'react-markdown';
 import Comment from '../components/Comment';

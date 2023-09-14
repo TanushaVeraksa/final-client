@@ -73,3 +73,8 @@ export const fetchPieceTitles = async() => {
     const {data} = await $host.get('api/piece/title');
     return data;
 } 
+
+export const getTags = async() => {
+    const {data} = await $host.post('api/review/tags');
+    return data;
+} 

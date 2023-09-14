@@ -5,7 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import {NavLink} from 'react-router-dom';
-import { HOME_ROUTE, LOGIN_ROUTE, PERSONAL_ROUTE } from '../utils/consts';
+import { HOME_ROUTE, LOGIN_ROUTE, PERSONAL_ROUTE, ADMIN_ROUTE } from '../utils/consts';
 import {observer} from 'mobx-react-lite'
 
 const NavBar = observer( () => {
@@ -26,7 +26,9 @@ const NavBar = observer( () => {
                 <Button 
                     variant={'outline-light'}
                     className='me-2'
-                    >Admin Panel</Button>}
+                    >
+                    <NavLink style={{color: 'white', textDecoration: 'none' }} to={ADMIN_ROUTE}>Admin Panel</NavLink>
+                    </Button>}
                 <Button variant={'outline-light'}>
                     <NavLink style={{color: 'white', textDecoration: 'none' }} to={PERSONAL_ROUTE + '/' + user.user.id}>Personal Area</NavLink>
                 </Button>
