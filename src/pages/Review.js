@@ -91,7 +91,7 @@ const Review = observer(() => {
         </Card>
         </Col>
       </Row>
-       <Comment review = {id}/>
+       {/* <Comment review = {id}/> */}
     </Container>
   )
 })

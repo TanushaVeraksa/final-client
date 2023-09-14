@@ -26,8 +26,15 @@ const Comment = observer((props) => {
     }, [])
 
     const subscribe = async() => {
+        const config = {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+        
+            },
+          };
         try {
-            const {data} = await $host.get('api/comment/get-comment');
+            const {data} = await $host.get('api/comment/get-comment', config);
             setComments(prev=> [...prev, data])
             await subscribe();
         } catch (e) {
@@ -39,12 +46,6 @@ const Comment = observer((props) => {
     }
     const sendMessage = () => {
         sendComment(value, user.user.email, review).then(data => console.log(data))
-        // await $host.post('api/comment/new-comment', {
-        //   message: value, 
-        //   userEmail: user.user.email, 
-        //   reviewId: review 
-        // })
-        //setComments(prev=> [...prev, data])
     }
 
     return (
