@@ -22,14 +22,6 @@ export const unauthRouter = [
         path: REGISTRATION_ROUTE,
         Component: <Authorization/>
     },
-    {
-        path: PERSONAL_ROUTE + '/:id',
-        Component: <PersonalArea/>
-    },
-    {
-        path: ADMIN_ROUTE,
-        Component: <Admin/>
-    },
 ]
 
 export const authRouter = [
@@ -47,3 +39,9 @@ export const authRouter = [
     },
 ]
 
+export const adminRouter = [
+    {
+        path: ADMIN_ROUTE,
+        Component: <Admin/>
+    },
+]

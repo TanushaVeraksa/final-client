@@ -8,7 +8,7 @@ import {NavLink} from 'react-router-dom';
 import { HOME_ROUTE, LOGIN_ROUTE, PERSONAL_ROUTE, ADMIN_ROUTE } from '../utils/consts';
 import {observer} from 'mobx-react-lite'
 
-const NavBar = observer( () => {
+const NavBar = observer(() => {
   const {user} = useContext(Context);
   const logout = () => {
     user.setUser({})
