@@ -30,10 +30,6 @@ export const authRouter = [
         Component: <PersonalArea/>
     },
     {
-        path: ADMIN_ROUTE,
-        Component: <Admin/>
-    },
-    {
         path: REVIEW_ROUTE + '/:id',
         Component: <Review/>
     },
