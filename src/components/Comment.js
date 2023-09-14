@@ -34,7 +34,7 @@ const Comment = observer((props) => {
             },
           };
         try {
-            const {data} = await $host.get('api/comment/get-comment', config);
+            const {data} = await $host.get('api/comment/message', config);
             setComments(prev=> [...prev, data])
             await subscribe();
         } catch (e) {
@@ -44,8 +44,15 @@ const Comment = observer((props) => {
             }, TIMER)
         }
     }
-    const sendMessage = () => {
-        sendComment(value, user.user.email, review).then(data => console.log(data))
+
+    // export const sendComment = async(message, userEmail, reviewId) => {
+    //     const {data} = await $host.post('api/comment/new-comment', {message, userEmail, reviewId})
+    //     return data;
+    // }
+    const sendMessage = async() => {
+        //sendComment(value, user.user.email, review).then(data => console.log(data))
+        const {data} = await $host.post('api/comment/message', {message: value, userEmail: user.user.email, reviewId: review})
+        console.log(data)
     }
 
     return (
