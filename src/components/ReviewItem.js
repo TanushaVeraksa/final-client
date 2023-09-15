@@ -13,7 +13,7 @@ function ReviewItem({review}) {
                 <Image className='img-responsive' src={review.img} rounded />
                 <div>
                     <div>{review.title} rating: {review.rating}</div>
-                    <div>tag: {review.tag}</div>
+                    <div>tag: {review.tag.map((tag, index) => <span key ={index}>{tag + ' '}</span>)}</div>
                 </div>
             </Card>
         </Col>

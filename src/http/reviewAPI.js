@@ -75,6 +75,30 @@ export const fetchPieceTitles = async() => {
 } 
 
 export const getTags = async() => {
-    const {data} = await $host.post('api/review/tags');
+    const {data} = await $host.get('api/tag');
     return data;
 } 
+
+export const getReviewTags = async(tags) => {
+    const {data} = await $host.get('api/tag/review-tag', {params: {
+        tags:tags 
+    }});
+    return data;
+} 
+
+
+export const countLikes = async(id) => {
+    const {data} = await $host.get('api/tag/count-likes', {params: {
+        id:id 
+    }});
+    return data;
+} 
+
+export const searchReview = async(searchString) => {
+    const {data} = await $host.get('api/search', {params: {
+        searchString:searchString 
+    }});
+    return data;
+} 
+
+

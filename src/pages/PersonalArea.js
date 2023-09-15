@@ -40,7 +40,7 @@ const PersonalArea = observer(() => {
     useEffect(() => {
        personalReviews(id).then(data => review.setPersonalReview(data))
        fetchPieceTitles().then(data => review.setPieseTitles(data))
-       getTags().then(data => setTags(data))
+       getTags().then(data => setTags(data.map(elem => elem.value)))
     }, [])
 
     useEffect(() => {
@@ -50,33 +50,15 @@ const PersonalArea = observer(() => {
                 setPiece(data.piece);
                 setGroup(data.group);
                 setGrade(data.grade);
-                setTagReview(data.tag);
                 setMarkdown(data.description);
                 review.setSelectedImg({img: data.img, publicId: data.publicId});
             })
         }
     }, [review, review.selectedReview])
 
-    const addedTag = () => {
-        let resTags = [];
-        if(tagReview && inputTag) {
-            const resTag = tagReview.split(',');
-            const resInput = inputTag.split(' ');
-            console.log(resTag, resInput)
-            resTags = resTag.concat(resInput);
-        } else if(tagReview) {
-            const resTag = tagReview.split(',');
-            resTags = resTag
-        } else {
-            const resInput = inputTag.split(' ');
-            resTags = resInput;
-        }
-        return resTags.map(elem => elem.replace(/\s/g, '')).filter(elem => elem !== ' ');
-    }
-
     const addReview = () => { 
-        const resTags = addedTag();
-        tag.addTags(resTags);
+        const input = inputTag.split(' ').filter(elem => elem.length !== 0);
+        const resTags = input.concat(tagReview);
         if(review.selectedImg) {
         createReview(title, piece, group, resTags, markdown, grade, review.selectedImg.img, review.selectedImg.publicId, id).then(data => review.addPersonalReview(data.review));
         cleanReview();
@@ -90,8 +72,8 @@ const PersonalArea = observer(() => {
         navigation(REVIEW_ROUTE + '/' + review.selectedReview._id)
     }
     const updateOneReview = () => {
-        const resTags = addedTag();
-        tag.addTags(resTags);
+        const input = inputTag.split(' ').filter(elem => elem.length !== 0);
+        const resTags = input.concat(tagReview);
         updateReview(review.selectedReview._id, title, piece, group, resTags, markdown, grade, review.selectedImg.img, review.selectedImg.publicId)
         .then(data => review.updatePersonalReview(data))
         cleanReview();
@@ -139,11 +121,11 @@ const PersonalArea = observer(() => {
             options={tags}
             freeSolo
             getOptionLabel={(option) => option}
-            onChange={(event, newValue) => setTagReview(newValue + ' ')}
+            onChange={(event, newValue) => setTagReview(newValue)}
             inputValue={inputTag}
             
             onInputChange={(event, newInputValue) => {
-            setInputTag(newInputValue);
+                setInputTag(newInputValue);
             }}
             
             renderInput={(params) => (

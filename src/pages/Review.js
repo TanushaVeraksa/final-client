@@ -10,7 +10,7 @@ import Card from 'react-bootstrap/Card';
 import Rating from '@mui/material/Rating';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { fetchOneReview, putRatingReview, checkLike, putLikeReview} from '../http/reviewAPI';
+import { fetchOneReview, putRatingReview, checkLike, putLikeReview, countLikes} from '../http/reviewAPI';
 import { red } from '@mui/material/colors';
 import ReactMarkdown from 'react-markdown';
 import Comment from '../components/Comment';
@@ -21,6 +21,9 @@ const Review = observer(() => {
   const {id} = useParams();
   const {user} = useContext(Context);
   const {review} = useContext(Context);
+  const [authorsLikes, setAuthorsLikes] = useState(0);
+  const [userName, setUserName] = useState('');
+
   useEffect(() => {
     fetchOneReview(id).then(data => {
       review.setReview(data)
@@ -28,6 +31,10 @@ const Review = observer(() => {
     })
     checkLike(user.user.id, id).then(data => {
       setLike(data);
+    })
+    countLikes(id).then(data => {
+      setAuthorsLikes(data.countLikes)
+      setUserName(data.userName)
     })
   }, [])
 
@@ -37,6 +44,11 @@ const Review = observer(() => {
   }
 
   const handleLike = () => {
+    if(like) {
+      setAuthorsLikes(prev => prev-1)
+    } else {
+      setAuthorsLikes(prev => prev+1)
+    }
     setLike((prev) => !prev)
     putLikeReview(user.user.id, id).then(data => {
       review.setReview(data)}
@@ -67,6 +79,9 @@ const Review = observer(() => {
             }
           </div>
           <Card.Text>Author grade: {review.review.grade}</Card.Text>
+          {/* <Card.Text>Tag: {review.review.tag.map((tag, index) => <span key ={index}>{tag + ' '}</span>)}</Card.Text> */}
+          <Card.Text>Tag: {review.review.tag}</Card.Text>
+
           <ReactMarkdown>{review.review.description}</ReactMarkdown>
           {user.isAuth ? 
             <div className='d-flex'>
@@ -86,6 +101,7 @@ const Review = observer(() => {
             </div>
           </div>
           }
+          <Card.Text>Author {userName} received {authorsLikes} likes for all reviews</Card.Text>
           <Card.Text>Date of creation: {review.review.dateCreation}</Card.Text>
         </Card.Body>
         </Card>
