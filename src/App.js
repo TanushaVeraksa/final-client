@@ -24,8 +24,10 @@ const App = observer(() => {
       }
       if(localStorage.getItem('github')) {
         user.setIsAuth(true);
+        user.setIsAdmin(false);
       } else {
         user.setIsAuth(false);
+        user.setIsAdmin(false);
       }
   }, [])
 
