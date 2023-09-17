@@ -39,6 +39,7 @@ const Authorization = observer(() => {
   }
 
   const authorizationGithub = () => {
+    localStorage.setItem('token', 'token')
     window.open('https://final-server-lyart.vercel.app/api/github');
   }
 

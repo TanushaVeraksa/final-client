@@ -5,7 +5,6 @@ import {observer} from 'mobx-react-lite';
 import { useContext, useEffect } from 'react';
 import { Context } from '.';
 import jwt_decode from 'jwt-decode';
-import Cookies from 'js-cookie';
 
 const App = observer(() => {
   const {user} = useContext(Context);
@@ -21,11 +20,6 @@ const App = observer(() => {
         }
       } else {
         user.setUser(false);
-        user.setIsAuth(false);
-      }
-      if(Cookies.get('user') === 'true') {
-        user.setIsAuth(true);
-      } else {
         user.setIsAuth(false);
       }
   }, [])
