@@ -1,7 +1,7 @@
 import {$host} from "./index";
 
-export const sendComment = async(message, userEmail, reviewId) => {
-    const {data} = await $host.post('api/comment/new-comment', {message, userEmail, reviewId})
+export const sendComment = async(message, userName, reviewId) => {
+    const {data} = await $host.post('api/comment/new-comment', {message, userName, reviewId})
     return data;
 }
 
@@ -12,9 +12,9 @@ export const getComments = async(reviewId) => {
     return data;
 }
 
-export const getComment = async(curr, reviewId, userEmail) => {
+export const getComment = async(curr, reviewId, userName) => {
     const {data} = await $host.get('api/comment/get-comment', {params: {
-        userEmail: userEmail,
+        userName: userName,
         curr: curr,
         reviewId: reviewId
     }})

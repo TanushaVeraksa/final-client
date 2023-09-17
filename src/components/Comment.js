@@ -25,7 +25,7 @@ const Comment = observer((props) => {
 
     const subscribe = async() => {
         try {
-            getComment(comment.reviewComments, review, user.user.email)
+            getComment(comment.reviewComments, review, user.user.name)
                 .then(data => console.log(data))
                 .catch(err => subscribe())
                 console.log(comment.reviewComments)
@@ -40,7 +40,7 @@ const Comment = observer((props) => {
     }
 
     const sendMessage = () => {
-        sendComment(value, user.user.email, review).then(data => setComments(prev => [...prev, data]))
+        sendComment(value, user.user.name, review).then(data => setComments(prev => [...prev, data]))
     }
 
     return (
@@ -61,7 +61,7 @@ const Comment = observer((props) => {
     {comments.map(comment => 
     <Card key={comment._id}>
         <Card.Body className='p-2'>
-            <Card.Subtitle className="mb-1 text-muted">{comment.userEmail}</Card.Subtitle>
+            <Card.Subtitle className="mb-1 text-muted">{comment.userName}</Card.Subtitle>
             <Card.Text>{comment.message}</Card.Text>
         </Card.Body>
     </Card>
