@@ -22,7 +22,7 @@ const App = observer(() => {
         user.setUser(false);
         user.setIsAuth(false);
       }
-      if(localStorage.getItem('guthub')) {
+      if(localStorage.getItem('github')) {
         user.setIsAuth(true);
       } else {
         user.setIsAuth(false);
