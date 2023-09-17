@@ -7,7 +7,6 @@ import Container from 'react-bootstrap/Container';
 import {NavLink} from 'react-router-dom';
 import { HOME_ROUTE, LOGIN_ROUTE, PERSONAL_ROUTE, ADMIN_ROUTE } from '../utils/consts';
 import {observer} from 'mobx-react-lite'
-import Cookies from 'js-cookie';
 
 const NavBar = observer(() => {
   const {user} = useContext(Context);
@@ -15,8 +14,8 @@ const NavBar = observer(() => {
     user.setUser({})
     user.setIsAuth(false);
     user.setIsAdmin(false);
-    Cookies.set('user', false);
     localStorage.removeItem('token');
+    localStorage.removeItem('github');
   }
   return (
     <Navbar bg="dark" data-bs-theme="dark">
