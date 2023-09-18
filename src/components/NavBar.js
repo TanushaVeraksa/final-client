@@ -6,7 +6,8 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import {NavLink} from 'react-router-dom';
 import { HOME_ROUTE, LOGIN_ROUTE, PERSONAL_ROUTE, ADMIN_ROUTE } from '../utils/consts';
-import {observer} from 'mobx-react-lite'
+import {observer} from 'mobx-react-lite';
+import {logoutGithub, logoutGoogle} from '../http/authAPI'
 
 const NavBar = observer(() => {
   const {user} = useContext(Context);
@@ -15,7 +16,8 @@ const NavBar = observer(() => {
     user.setIsAuth(false);
     user.setIsAdmin(false);
     localStorage.removeItem('token');
-    localStorage.removeItem('github');
+    logoutGithub().then(data => console.log(data));
+    logoutGoogle().then(data => console.log(data))
   }
   return (
     <Navbar bg="dark" data-bs-theme="dark">

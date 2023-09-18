@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import { NavLink, useLocation, useNavigate} from 'react-router-dom';
 import { REGISTRATION_ROUTE, LOGIN_ROUTE } from '../utils/consts';
 import { registration, login } from '../http/userAPI';
-import { } from '../http/authAPI';
+import { getGoogleUser, getGithubUser} from '../http/authAPI';
 import {observer} from 'mobx-react-lite'
 import { Context } from '..';
 
@@ -38,18 +38,22 @@ const Authorization = observer(() => {
     }
   }
 
-  const authorizationGithub = () => {
-    localStorage.setItem('github', 'true')
-    window.open('https://final-server-lyart.vercel.app/api/github');
-  }
+const authorizationGithub = () => {
+  getGithubUser().then(data => {
+    user.setUser(data);
+    user.setIsAuth(true);
+})
+  window.open('https://final-server-lyart.vercel.app/api/github');
+}
 
-  const authorizationVK = () => {
-
-  }
-
-  const authorizationGoogle = () => {
-   
-  }
+const authorizationGoogle = () => {
+    getGoogleUser().then(data => {
+      user.setUser(data);
+      user.setIsAuth(true);
+  })
+  
+  window.open('https://final-server-lyart.vercel.app/api/google');
+}
 
   return (
     <Container
@@ -104,13 +108,6 @@ const Authorization = observer(() => {
                 onClick={authorizationGithub}
                 >
                   GitHub
-                </Button>
-                <Button 
-                className='mt-3 align-self-end w-25 m-auto' 
-                variant={'outline-success'}
-                onClick={authorizationVK}
-                >
-                  VK
                 </Button>
                 <Button 
                 className='mt-3 align-self-end w-25 m-auto' 

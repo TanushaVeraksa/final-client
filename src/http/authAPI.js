@@ -1,4 +1,5 @@
 import {$host} from "./index";
+import jwt_decode from 'jwt-decode';
 
 export const authGithub = async() => {
     try{
@@ -22,4 +23,21 @@ export const chechAuthGitHub = async() => {
 export const logoutGithub = async() => {
     const {data} = await $host.get('/api/github/logout')
     return data;
+}
+
+export const logoutGoogle = async() => {
+    const {data} = await $host.get('/api/google/logout')
+    return data;
+}
+
+export const getGoogleUser = async() => {
+    const {data} = await $host.get('/api/google/user')
+    localStorage.setItem('token', data.token)
+    return jwt_decode(data.token);
+}
+
+export const getGithubUser = async() => {
+    const {data} = await $host.get('/api/github/user')
+    localStorage.setItem('token', data.token)
+    return jwt_decode(data.token);
 }
