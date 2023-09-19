@@ -57,7 +57,7 @@ const PersonalArea = observer(() => {
     }, [review, review.selectedReview])
 
     const addReview = () => { 
-        const input = inputTag.split(' ').filter(elem => elem.length !== 0);
+        const input = inputTag ? inputTag.split(' ').filter(elem => elem.length !== 0) : [];
         const resTags = input.concat(tagReview);
         if(review.selectedImg) {
         createReview(title, piece, group, resTags, markdown, grade, review.selectedImg.img, review.selectedImg.publicId, id).then(data => review.addPersonalReview(data.review));
@@ -72,7 +72,7 @@ const PersonalArea = observer(() => {
         navigation(REVIEW_ROUTE + '/' + review.selectedReview._id)
     }
     const updateOneReview = () => {
-        const input = inputTag.split(' ').filter(elem => elem.length !== 0);
+        const input = inputTag ? inputTag.split(' ').filter(elem => elem.length !== 0) : [];
         const resTags = input.concat(tagReview);
         updateReview(review.selectedReview._id, title, piece, group, resTags, markdown, grade, review.selectedImg.img, review.selectedImg.publicId)
         .then(data => review.updatePersonalReview(data))

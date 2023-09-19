@@ -27,7 +27,7 @@ const Home = observer(() => {
     }
   return (
     <Container>
-    <Row className='mt-3'>
+    <Row className='mt-3 mb-4'>
     <Col md={3}>
     <InputGroup>
         <Form.Control
@@ -40,7 +40,7 @@ const Home = observer(() => {
         </InputGroup.Text>
       </InputGroup>
     </Col>
-    <Col md={6}>
+    <Col md={7} className='d-flex justify-content-center'>
         <TagCloud
             className='m-auto'
             style={{cursor: 'pointer'}}
@@ -50,8 +50,11 @@ const Home = observer(() => {
             onClick={pick => getReviewTags(pick.value).then(data => tag.setSerchedReviews(data))}
         />
     </Col>
-    <Col>
-        <Button onClick={() => tag.setSerchedReviews([])}>Reset tags</Button>
+    <Col className='d-flex justify-content-center'>
+        <Button 
+            onClick={() => tag.setSerchedReviews([])}
+            style={{fontWeight: 'bold', fontSize: '1.2rem'}}
+            >Reset search</Button>
     </Col>
     </Row>
     <Row>
@@ -61,7 +64,7 @@ const Home = observer(() => {
     </Row>
     <Row>
     <Card.Body className="text-center">
-        <Card.Header>Last added reviews</Card.Header>
+        <Card.Title className='mb-2'>Last added reviews</Card.Title>
     </Card.Body>
         {review.lastReviews.map(elem => 
             <ReviewItem key={elem._id} review={elem}/>
@@ -69,7 +72,7 @@ const Home = observer(() => {
     </Row>
     <Row>
     <Card.Body className="text-center">
-        <Card.Header>Top rated reviews</Card.Header>
+        <Card.Title className='mb-2 mt-2'>Top rated reviews</Card.Title>
     </Card.Body>
         {review.topReviews.map(elem => 
             <ReviewItem key={elem._id} review={elem}/>

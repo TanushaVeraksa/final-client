@@ -5,7 +5,6 @@ import {observer} from 'mobx-react-lite';
 import { useContext, useEffect } from 'react';
 import { Context } from '.';
 import jwt_decode from 'jwt-decode';
-import {getGoogleUser, getGithubUser} from './http/authAPI';
 
 const App = observer(() => {
   const {user} = useContext(Context);

@@ -11,19 +11,20 @@ const ReviewItem = observer(() => {
     return (
         <Row>
         {review.personalReview.map((elem) => 
-        <Col md={3}>
+        <Col md={4}>
             <Card
-            bg={elem._id === review.selectedReview._id ? 'warning' : 'secondary'}
-            text='light'
-            className='d-flex flex-row p-2 mt-2'
-            style={{cursor: 'pointer'}}
-            onClick={() => review.setSelectedReview(elem)}
+                bg={elem._id === review.selectedReview._id ? 'warning' : 'secondary'}
+                text='light'
+                className='d-flex flex-row p-2 mt-2 align-items-center'
+                style={{cursor: 'pointer'}}
+                onClick={() => review.setSelectedReview(elem)}
             >
                 <Image width={100} height={100} src={elem.img} rounded />
-                <div>
-                    <div>{elem.title}</div>
-                    <div>tag: {elem.tag}</div>
-                    <div>date: {elem.dateCreation}</div>
+                <div className='m-auto'>
+                    <Card.Header>{elem.title}</Card.Header>
+                    <Card.Text className='mb-0'>Group: {elem.group} Grade: {elem.grade}</Card.Text>
+                    <Card.Text className='mb-0'>Author's grade: {elem.grade}</Card.Text>
+                    <Card.Text>Date: {elem.dateCreation && elem.dateCreation.slice(0, 10)}</Card.Text>
                 </div>
             </Card>
         </Col>

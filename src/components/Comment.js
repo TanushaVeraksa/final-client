@@ -45,7 +45,7 @@ const Comment = observer((props) => {
 
     return (
     <Row>
-    <Form.Label>Comment</Form.Label>
+    <Form.Label className='mb-2'>Comment</Form.Label>
     {user.isAuth && 
     <>
         <Form.Control
@@ -53,13 +53,11 @@ const Comment = observer((props) => {
         value={value}
         onChange={e=> setValue(e.target.value)}
     />
-
-    <Button variant="primary" className='w-25' onClick={sendMessage}>Send</Button>
+    <Button variant="primary" className='w-25 mb-2 mt-2' onClick={sendMessage}>Send</Button>
     </>
-    }
-    
+    } 
     {comments.map(comment => 
-    <Card key={comment._id}>
+    <Card className='mb-2' key={comment._id}>
         <Card.Body className='p-2'>
             <Card.Subtitle className="mb-1 text-muted">{comment.userName}</Card.Subtitle>
             <Card.Text>{comment.message}</Card.Text>

@@ -4,13 +4,15 @@ import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/esm/Button';
 import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import { NavLink, useLocation, useNavigate} from 'react-router-dom';
 import { REGISTRATION_ROUTE, LOGIN_ROUTE } from '../utils/consts';
 import { registration, login } from '../http/userAPI';
 import { getGoogleUser, getGithubUser} from '../http/authAPI';
 import {observer} from 'mobx-react-lite'
 import { Context } from '..';
-
+import GoogleIcon from '@mui/icons-material/Google';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 const Authorization = observer(() => {
   const {user} = useContext(Context);
@@ -60,9 +62,29 @@ const authorizationGoogle = () => {
       className='d-flex justify-content-center align-items-center'
       style={{height: window.innerHeight - 54, width: '95%'}}
     >
-      <Card className='p-3' style={{width: '60%'}}>
+      <Card className='p-3' style={{width: '80%'}}>
             <h3 className='m-auto'>{isLogin ? 'Authorization' : 'Registration'}</h3>
             <Form className='d-flex flex-column'>
+              <Row>
+              <Col md={5} className='d-flex flex-column justify-content-around'>
+                <Button 
+                  style={{fontWeight: 'bold', fontSize: '1.2rem'}}
+                  className='w-100' 
+                  variant="dark"
+                  onClick={authorizationGithub}
+                  >
+                    <GitHubIcon fontSize="large"/>GitHub
+                </Button>
+                <Button 
+                  style={{fontWeight: 'bold', fontSize: '1.2rem'}}
+                  className='w-100' 
+                  variant="danger"
+                  onClick={authorizationGoogle}
+                  >
+                    <GoogleIcon fontSize="large"/> Google
+                </Button>
+              </Col>
+              <Col>
               <Form.Control
                 className='mt-2'
                 placeholder='Enter email'
@@ -95,27 +117,14 @@ const authorizationGoogle = () => {
                 }
                 <Button 
                 className='mt-3 align-self-end w-50 m-auto' 
-                variant={'outline-success'}
+                variant="primary"
                 onClick = {click}
+                style={{fontWeight: 'bold', fontSize: '1.2rem'}}
                 >
                  {isLogin ? 'Login' : 'Register'} 
                 </Button>
               </Row>
-              <Row>
-              <Button 
-                className='mt-3 align-self-end w-25 m-auto' 
-                variant={'outline-success'}
-                onClick={authorizationGithub}
-                >
-                  GitHub
-                </Button>
-                <Button 
-                className='mt-3 align-self-end w-25 m-auto' 
-                variant={'outline-success'}
-                onClick={authorizationGoogle}
-                >
-                  Google
-                </Button>
+              </Col>
               </Row>
             </Form>
       </Card>

@@ -79,9 +79,7 @@ const Review = observer(() => {
             }
           </div>
           <Card.Text>Author grade: {review.review.grade}</Card.Text>
-          {/* <Card.Text>Tag: {review.review.tag.map((tag, index) => <span key ={index}>{tag + ' '}</span>)}</Card.Text> */}
-          <Card.Text>Tag: {review.review.tag}</Card.Text>
-
+          <Card.Text>Tags: {review.review.tag && review.review.tag.map((tag, index) => <span key ={index}>{tag + ' '}</span>)}</Card.Text>
           <ReactMarkdown>{review.review.description}</ReactMarkdown>
           {user.isAuth ? 
             <div className='d-flex'>
@@ -101,8 +99,8 @@ const Review = observer(() => {
             </div>
           </div>
           }
-          <Card.Text>Author {userName} received {authorsLikes} likes for all reviews</Card.Text>
-          <Card.Text>Date of creation: {review.review.dateCreation}</Card.Text>
+          <Card.Text className='mt-2 mb-2'>Author {userName} received {authorsLikes} likes for all reviews</Card.Text>
+          <Card.Text>Date of creation: {review.review.dateCreation && review.review.dateCreation.slice(0, 10)}</Card.Text>
         </Card.Body>
         </Card>
         </Col>
