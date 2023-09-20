@@ -78,7 +78,7 @@ const NavBar = observer(() => {
           <Nav className='m-auto'>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               {user.isAuth ? 
-              <NavDropdown.Item className='ms-auto'>
+              <>
                   {user.isAdmin && 
                   <NavDropdown.Item>
                       <NavLink style={{color: 'white', textDecoration: 'none' }} to={ADMIN_ROUTE}>{t("nav.admin")}</NavLink>
@@ -91,7 +91,7 @@ const NavBar = observer(() => {
                       onClick={logout}
                   >{t("nav.logout")}
                   </NavDropdown.Item>
-              </NavDropdown.Item>
+              </>
               :
               <Nav className='ms-auto'>
                   <NavDropdown.Item>
