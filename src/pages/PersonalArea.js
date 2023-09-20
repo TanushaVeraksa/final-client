@@ -16,14 +16,15 @@ import {GROUPS} from '../utils/consts';
 import Button from 'react-bootstrap/Button';
 import {useNavigate} from 'react-router-dom';
 import {REVIEW_ROUTE} from '../utils/consts'
-import SortReview from './SortReview';
+import SortReview from '../components/SortReview';
 import AdminBreadcrumbs from '../components/AdminBreadcrumbs';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
+import { useTranslation } from 'react-i18next';
 
 const PersonalArea = observer(() => {
+    const { t, i18n } = useTranslation();
     const {review} = useContext(Context)
-    const {tag} = useContext(Context)
     const {user} = useContext(Context)
     const {id} = useParams();
     const [markdown, setMarkdown] = useState('');
@@ -35,7 +36,7 @@ const PersonalArea = observer(() => {
     const [tags, setTags] = useState([]);
     const [inputTag, setInputTag] = useState();
 
-    const navigation = useNavigate ();
+    const navigation = useNavigate();
     
     useEffect(() => {
        personalReviews(id).then(data => review.setPersonalReview(data))
@@ -59,24 +60,34 @@ const PersonalArea = observer(() => {
     const addReview = () => { 
         const input = inputTag ? inputTag.split(' ').filter(elem => elem.length !== 0) : [];
         const resTags = input.concat(tagReview);
-        if(review.selectedImg) {
-        createReview(title, piece, group, resTags, markdown, grade, review.selectedImg.img, review.selectedImg.publicId, id).then(data => review.addPersonalReview(data.review));
-        cleanReview();
-    } 
+        if(title && piece && group && resTags && markdown && grade && review.selectedImg.img && review.selectedImg.publicId && id && review.selectedImg) {
+            if(review.selectedImg) {
+                createReview(title, piece, group, resTags, markdown, grade, review.selectedImg.img, review.selectedImg.publicId, id).then(data => review.addPersonalReview(data.review));
+                cleanReview();
+            } 
+        } else {
+            alert('Please enter all fields!')
+        }
     }
     const deleteOneReview = () => {
         deleteReview(review.selectedReview._id).then(data => console.log(data))
         review.deletePersonalReview(review.selectedReview._id)
+        cleanReview();
     }
     const openReview = () => {
+        if(review.selectedReview._id) 
         navigation(REVIEW_ROUTE + '/' + review.selectedReview._id)
     }
     const updateOneReview = () => {
         const input = inputTag ? inputTag.split(' ').filter(elem => elem.length !== 0) : [];
         const resTags = input.concat(tagReview);
-        updateReview(review.selectedReview._id, title, piece, group, resTags, markdown, grade, review.selectedImg.img, review.selectedImg.publicId)
-        .then(data => review.updatePersonalReview(data))
-        cleanReview();
+        if(title && piece && group && resTags && markdown && grade && review.selectedImg.img && review.selectedImg.publicId && id && review.selectedImg) {
+            updateReview(review.selectedReview._id, title, piece, group, resTags, markdown, grade, review.selectedImg.img, review.selectedImg.publicId)
+            .then(data => review.updatePersonalReview(data))
+            cleanReview();
+        } else {
+            alert('Please enter all fields!')
+        }
     }
     const cleanReview = () => {
         setTitle('');
@@ -94,7 +105,7 @@ const PersonalArea = observer(() => {
         <Form>
         <Row className="mb-2">
         <Form.Group as={Col} md="4" controlId="validationCustom01">
-            <Form.Label className="mb-1">Title</Form.Label>
+            <Form.Label className="mb-1">{t("personal.title")}</Form.Label>
             <Form.Control
                 required
                 value={title} 
@@ -102,18 +113,18 @@ const PersonalArea = observer(() => {
             />
         </Form.Group>
         <Form.Group as={Col} md="4" controlId="validationCustom02">
-            <Form.Label>Group</Form.Label>
+            <Form.Label>{t("personal.group")}</Form.Label>
             <Form.Select
                 onChange={e=> setGroup(e.target.value)}
             >
-                <option>Default</option>
+                <option></option>
                 {GROUPS.map((group)=> 
                     <option value={group}>{group}</option>
                 )}
             </Form.Select>
         </Form.Group>
         <Form.Group as={Col} md="4" controlId="validationCustom02">
-            <Form.Label className='mb-1'>Tag</Form.Label>
+            <Form.Label className='mb-1'>{t("personal.tag")}</Form.Label>
             <Autocomplete
             multiple
             id="size-small-standard-multi"
@@ -132,24 +143,27 @@ const PersonalArea = observer(() => {
             <TextField
                 {...params}
                 variant="standard"
-                label="Select a tag or enter a new"
-                placeholder="Tags"
+                label={t("personal.tagInfo")}
+                placeholder={t("personal.tag")}
             />
             )}
             />
         </Form.Group>
         </Row>
         <Row className="mb-2">
-        <Form.Label>Piece of Art</Form.Label>
+        <Form.Label>{t("personal.piece")}</Form.Label>
         <Form.Group as={Col} md="6" controlId="validationCustom01">
             <Form.Select
             onChange={e=> setPiece(e.target.value)}
             >
-                <option>Default</option>
+                <option></option>
                 {review.pieceTitles.map((title)=> 
                     <option value={title}>{title}</option>
                 )}
             </Form.Select>
+            <Form.Text>
+            {t("personal.info")}
+            </Form.Text>
             </Form.Group>
             <Form.Group as={Col} md="6" controlId="validationCustom01">
             <Form.Control
@@ -157,10 +171,13 @@ const PersonalArea = observer(() => {
                 value={piece} 
                 onChange={e=> setPiece(e.target.value)}
             />
-            </Form.Group>
+            <Form.Text>
+            {t("personal.infoPiece")}
+            </Form.Text>
+        </Form.Group>
         </Row>
-        <Form.Label>Description</Form.Label>
-        <Row className="mb-2">
+        <Form.Label>{t("personal.description")}</Form.Label>
+        <Row className="mb-4">
         <Form.Group as={Col} md="6" controlId="validationCustom01">
             <Form.Control 
                 required
@@ -181,7 +198,7 @@ const PersonalArea = observer(() => {
             <ImageUpload/>
             </Col>
         <Col md={4} className='d-flex justify-content-between align-items-center'>
-            <Form.Label>Author's grade</Form.Label>
+            <Form.Label>{t("personal.grade")}</Form.Label>
             <input 
                 required
                 type="range" 
@@ -194,17 +211,21 @@ const PersonalArea = observer(() => {
             <Form.Label>{grade}</Form.Label>
         </Col>
         <Col md={4} className='d-flex justify-content-end align-items-center'>
-            <Button onClick={addReview}>Add</Button>
-            <Button className='ms-2' onClick={updateOneReview}>Update</Button>
-            <Button className='ms-2' onClick={cleanReview}>Clean</Button>
+            <Button onClick={addReview}>{t("personal.add")}</Button>
+            <Button className='ms-2' onClick={updateOneReview}>{t("personal.update")}</Button>
+            <Button className='ms-2' onClick={cleanReview}>{t("personal.clean")}</Button>
         </Col>
         </Row>
         </Form>
-        <ListGroup className='w-50 mt-2'>
-            <ListGroup.Item onClick={openReview} style={{cursor: 'pointer'}}>Open in preview mode</ListGroup.Item>
-            <ListGroup.Item onClick={deleteOneReview} style={{cursor: 'pointer'}}>Delete</ListGroup.Item>
-        </ListGroup>
+        <Row>
+            <Col md={3}>
+                <ListGroup>
+                    <ListGroup.Item onClick={openReview} style={{cursor: 'pointer'}}>{t("personal.open")}</ListGroup.Item>
+                    <ListGroup.Item onClick={deleteOneReview} style={{cursor: 'pointer'}}>{t("personal.delete")}</ListGroup.Item>
+                </ListGroup>
+            </Col>
         <SortReview/>
+        </Row>
         <PersonalItems/>
   </Container>
   )

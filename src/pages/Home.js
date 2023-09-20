@@ -12,8 +12,10 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import SearchIcon from '@mui/icons-material/Search';
+import { useTranslation } from 'react-i18next';
 
 const Home = observer(() => {
+    const { t, i18n } = useTranslation();
     const {review} = useContext(Context)
     const {tag} = useContext(Context)
     const [value, setValue] = useState();
@@ -54,7 +56,7 @@ const Home = observer(() => {
         <Button 
             onClick={() => tag.setSerchedReviews([])}
             style={{fontWeight: 'bold', fontSize: '1.2rem'}}
-            >Reset search</Button>
+            >{t("home.search")}</Button>
     </Col>
     </Row>
     <Row>
@@ -64,7 +66,7 @@ const Home = observer(() => {
     </Row>
     <Row>
     <Card.Body className="text-center">
-        <Card.Title className='mb-2'>Last added reviews</Card.Title>
+        <Card.Title className='mb-2'>{t("home.last")}</Card.Title>
     </Card.Body>
         {review.lastReviews.map(elem => 
             <ReviewItem key={elem._id} review={elem}/>
@@ -72,7 +74,7 @@ const Home = observer(() => {
     </Row>
     <Row>
     <Card.Body className="text-center">
-        <Card.Title className='mb-2 mt-2'>Top rated reviews</Card.Title>
+        <Card.Title className='mb-2 mt-2'>{t("home.top")}</Card.Title>
     </Card.Body>
         {review.topReviews.map(elem => 
             <ReviewItem key={elem._id} review={elem}/>

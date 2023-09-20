@@ -1,0 +1,73 @@
+{
+    "comment": {
+        "text": "Comments",
+        "button": "Send"
+    },
+    "home": {
+        "last": "Last added reviews",
+        "top": "Top rated reviews",
+        "search": "Reset search"
+    },
+    "review": {
+        "rating": "Rating",
+        "tag": "Tags",
+        "group": "Group",
+        "grade": "Author grade",
+        "likes": "Likes",
+        "total": "Total likes by",
+        "date": "Date of creation"
+    },
+    "nav": {
+        "review": "Reviews",
+        "admin": "Admin panel",
+        "personal": "Personal Area",
+        "logout": "Logout",
+        "auth": "Login/Register"
+    },
+    "admin": {
+        "name": "Name",
+        "email": "Email",
+        "role": "Role",
+        "page": "Personal Page",
+        "area": "Personal Area"
+    },
+    "auth": {
+        "auth": "Authorization",
+        "email": "Enter email",
+        "password": "Enter password",
+        "account": "No account? ",
+        "register": "Register",
+        "login": "Login"
+    },
+    "registration": {
+        "registration": "Registration",
+        "name": "Enter name",
+        "account": "Have an account? ",
+        "login": "Login",
+        "register": "Register"
+    },
+    "personal": {
+        "title": "Title",
+        "group": "Group",
+        "tag": "Tags",
+        "tagInfo": "Select a tag or enter a new",
+        "piece": "Piece of Art",
+        "info": "Select an existing piece and link it to existing reviews.",
+        "ingoPiece": "Create a new piece.",
+        "description": "Description",
+        "grade": "Author's grade",
+        "add": "Add",
+        "update": "Update",
+        "clean": "Clean",
+        "open": "Open in preview mode",
+        "delete": "Delete",
+        "date": "Sort by date",
+        "sortGrade": "Sort by author's grade",
+        "sortGroup": "Sort by group"
+    },
+    "image": {
+        "drag": "Drag and Drop Files Here",
+        "or": "Or",
+        "select": "Select Files"
+    }
+}

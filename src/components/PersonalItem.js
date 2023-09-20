@@ -5,8 +5,10 @@ import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import {observer} from 'mobx-react-lite';
 import {Context} from '../index';
+import { useTranslation } from 'react-i18next';
 
 const ReviewItem = observer(() => {
+    const { t, i18n } = useTranslation();
     const {review} = useContext(Context);
     return (
         <Row>
@@ -22,9 +24,9 @@ const ReviewItem = observer(() => {
                 <Image width={100} height={100} src={elem.img} rounded />
                 <div className='m-auto'>
                     <Card.Header>{elem.title}</Card.Header>
-                    <Card.Text className='mb-0'>Group: {elem.group} Grade: {elem.grade}</Card.Text>
-                    <Card.Text className='mb-0'>Author's grade: {elem.grade}</Card.Text>
-                    <Card.Text>Date: {elem.dateCreation && elem.dateCreation.slice(0, 10)}</Card.Text>
+                    <Card.Text className='mb-0'>{t("review.group")}: {elem.group}</Card.Text>
+                    <Card.Text className='mb-0'>{t("review.grade")}: {elem.grade}</Card.Text>
+                    <Card.Text>{t("review.date")}: {elem.dateCreation && elem.dateCreation.slice(0, 10)}</Card.Text>
                 </div>
             </Card>
         </Col>

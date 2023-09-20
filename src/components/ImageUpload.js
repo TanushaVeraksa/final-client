@@ -38,8 +38,6 @@ const ImageUpload = observer(() => {
     console.error(error);
   };
   
-
-
   return (
     <div>
       <FileUpload onError={onError} body={<CustomBody/>} overlap={false} fileValue={files} onChange={onChange}/>

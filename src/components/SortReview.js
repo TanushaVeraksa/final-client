@@ -5,10 +5,12 @@ import {observer} from 'mobx-react-lite';
 import { Context } from '../index';
 import { useParams } from 'react-router-dom';
 import {GROUPS} from '../utils/consts';
-import Row from 'react-bootstrap/Row';
 import {personalReviews} from '../http/reviewAPI';
+import { useTranslation } from 'react-i18next';
+import Col from 'react-bootstrap/Col';
 
 const SortReview = observer(() => {
+  const { t, i18n } = useTranslation();
   const {review} = useContext(Context)
   const {id} = useParams();
   const [group, setGroup] = useState();
@@ -24,7 +26,7 @@ const SortReview = observer(() => {
   },[group, date, grade])
 
   return (
-    <Row className="mb-4 mt-4">
+    <Col className="d-flex justify-content-between flex-wrap">
       <Autocomplete
       disablePortal
       id="combo-box-demo"
@@ -35,7 +37,7 @@ const SortReview = observer(() => {
           onInputChange={(event, newInputValue) => {
             setInputGroup(newInputValue);
           }}
-      renderInput={(params) => <TextField {...params} label="Group" />}
+      renderInput={(params) => <TextField {...params} label={t("personal.sortGroup")} />}
     />
       <Autocomplete
       disablePortal
@@ -47,7 +49,7 @@ const SortReview = observer(() => {
           onInputChange={(event, newInputValue) => {
             setInputDate(newInputValue);
           }}
-      renderInput={(params) => <TextField {...params} label="Sort by date" />}
+      renderInput={(params) => <TextField {...params} label={t("personal.date")} />}
     />
     <Autocomplete
       disablePortal
@@ -59,9 +61,9 @@ const SortReview = observer(() => {
           onInputChange={(event, newInputValue) => {
             setInputGrade(newInputValue);
           }}
-      renderInput={(params) => <TextField {...params} label="Sort by author's grade" />}
+      renderInput={(params) => <TextField {...params} label={t("personal.sortGrade")} />}
     />
-  </Row>
+  </Col>
   )
 })
 

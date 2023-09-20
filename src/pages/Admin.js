@@ -7,9 +7,10 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import {NavLink} from 'react-router-dom';
 import { PERSONAL_ROUTE } from '../utils/consts';
-
+import { useTranslation } from 'react-i18next';
 
 const Admin = () => {
+  const { t, i18n } = useTranslation();
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -24,10 +25,10 @@ const Admin = () => {
       <thead>
         <tr>
           <th>#</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th>Personal Page</th>
+          <th>{t("admin.name")}</th>
+          <th>{t("admin.email")}</th>
+          <th>{t("admin.role")}</th>
+          <th>{t("admin.page")}</th>
         </tr>
       </thead>
       <tbody>
@@ -39,7 +40,7 @@ const Admin = () => {
           <td>{user.role}</td>
           <td>
             <Button>
-              <NavLink style={{color: 'white', textDecoration: 'none' }} to={PERSONAL_ROUTE + '/' + user._id}>Personal Area</NavLink>
+              <NavLink style={{color: 'white', textDecoration: 'none' }} to={PERSONAL_ROUTE + '/' + user._id}>{t("admin.area")}</NavLink>
             </Button>
           </td>
         </tr>

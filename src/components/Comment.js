@@ -6,8 +6,10 @@ import Button from 'react-bootstrap/Button';
 import {sendComment, getComments, getComment} from '../http/commentAPI'
 import {Context} from '../index'
 import {observer} from 'mobx-react-lite'
+import { useTranslation } from 'react-i18next';
 
 const Comment = observer((props) => {
+    const { t, i18n } = useTranslation();
     const [value, setValue] = useState();
     const {review} = props;
     const [comments, setComments] = useState([]);
@@ -45,7 +47,7 @@ const Comment = observer((props) => {
 
     return (
     <Row>
-    <Form.Label className='mb-2'>Comment</Form.Label>
+    <Form.Label className='mb-2'>{t('comment.text')}</Form.Label>
     {user.isAuth && 
     <>
         <Form.Control

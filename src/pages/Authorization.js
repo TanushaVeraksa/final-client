@@ -6,21 +6,24 @@ import Button from 'react-bootstrap/esm/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { NavLink, useLocation, useNavigate} from 'react-router-dom';
-import { REGISTRATION_ROUTE, LOGIN_ROUTE } from '../utils/consts';
+import { REGISTRATION_ROUTE, LOGIN_ROUTE, HOME_ROUTE } from '../utils/consts';
 import { registration, login } from '../http/userAPI';
 import { getGoogleUser, getGithubUser} from '../http/authAPI';
 import {observer} from 'mobx-react-lite'
 import { Context } from '..';
 import GoogleIcon from '@mui/icons-material/Google';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import { useTranslation } from 'react-i18next';
 
 const Authorization = observer(() => {
+  const { t, i18n } = useTranslation();
   const {user} = useContext(Context);
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
   const location = useLocation();
   const isLogin = location.pathname === LOGIN_ROUTE;
+  const navigation = useNavigate();
 
   const click = async() => {
     try {
@@ -35,6 +38,7 @@ const Authorization = observer(() => {
       }
       user.setUser(data);
       user.setIsAuth(true);
+      navigation(HOME_ROUTE)
     } catch(e) {
       alert(e.response.data.message)
     }
@@ -63,7 +67,7 @@ const authorizationGoogle = () => {
       style={{height: window.innerHeight - 54, width: '95%'}}
     >
       <Card className='p-3' style={{width: '80%'}}>
-            <h3 className='m-auto'>{isLogin ? 'Authorization' : 'Registration'}</h3>
+            <h3 className='m-auto'>{isLogin ? t("auth.auth") : t("registration.registration")}</h3>
             <Form className='d-flex flex-column'>
               <Row>
               <Col md={5} className='d-flex flex-column justify-content-around'>
@@ -87,20 +91,20 @@ const authorizationGoogle = () => {
               <Col>
               <Form.Control
                 className='mt-2'
-                placeholder='Enter email'
+                placeholder={t("auth.email")}
                 value = {email}
                 onChange={e => setEmail(e.target.value)}
               />
               {!isLogin && 
               <Form.Control 
                     className='mt-2'
-                    placeholder='Enter name'
+                    placeholder={t("registration.name")}
                     value = {name}
                     onChange={e => setName(e.target.value)}
                 />}
               <Form.Control 
                   className='mt-2'
-                  placeholder='Enter password'
+                  placeholder={t("auth.password")}
                   type='password'
                   value = {password}
                   onChange={e => setPassword(e.target.value)}
@@ -108,11 +112,11 @@ const authorizationGoogle = () => {
               <Row>
                 {isLogin ? 
                 <div className='mt-2'>
-                  No account? <NavLink to={REGISTRATION_ROUTE}>Register</NavLink>
+                  {t("auth.account")}<NavLink to={REGISTRATION_ROUTE}>{t("auth.register")}</NavLink>
                 </div>
                 :
                 <div className='mt-2'>
-                  Have an account? <NavLink to={LOGIN_ROUTE}>Login</NavLink>
+                  {t("registration.account")}<NavLink to={LOGIN_ROUTE}>{t("registration.login")}</NavLink>
                 </div>
                 }
                 <Button 
@@ -121,7 +125,7 @@ const authorizationGoogle = () => {
                 onClick = {click}
                 style={{fontWeight: 'bold', fontSize: '1.2rem'}}
                 >
-                 {isLogin ? 'Login' : 'Register'} 
+                 {isLogin ? t("registration.login") : t("registration.register")} 
                 </Button>
               </Row>
               </Col>

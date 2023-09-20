@@ -14,8 +14,10 @@ import { fetchOneReview, putRatingReview, checkLike, putLikeReview, countLikes} 
 import { red } from '@mui/material/colors';
 import ReactMarkdown from 'react-markdown';
 import Comment from '../components/Comment';
+import { useTranslation } from 'react-i18next';
 
 const Review = observer(() => {
+  const { t, i18n } = useTranslation();
   const [value, setValue] = useState(0);
   const [like, setLike] = useState();
   const {id} = useParams();
@@ -67,7 +69,7 @@ const Review = observer(() => {
           <Card.Title>{review.review.title}</Card.Title>
           <Card.Text>Group: {review.review.group}</Card.Text>
           <div className='d-flex'>
-            <Card.Text className='pe-4'>Rating: {value}</Card.Text>
+            <Card.Text className='pe-4'>{t("review.rating")}: {value}</Card.Text>
             {user.isAuth ? 
               <Rating
               name="simple-controlled"
@@ -78,8 +80,8 @@ const Review = observer(() => {
             <Rating name="read-only" value={value} readOnly />
             }
           </div>
-          <Card.Text>Author grade: {review.review.grade}</Card.Text>
-          <Card.Text>Tags: {review.review.tag && review.review.tag.map((tag, index) => <span key ={index}>{tag + ' '}</span>)}</Card.Text>
+          <Card.Text>{t("review.grade")}: {review.review.grade}</Card.Text>
+          <Card.Text>{t("review.tag")}: {review.review.tag && review.review.tag.map((tag, index) => <span key ={index}>{tag + ' '}</span>)}</Card.Text>
           <ReactMarkdown>{review.review.description}</ReactMarkdown>
           {user.isAuth ? 
             <div className='d-flex'>
@@ -93,14 +95,14 @@ const Review = observer(() => {
           </div>
           : 
           <div className='d-flex'>
-          Likes: {review.review.likes ? review.review.likes.length : 0}
+          {t("review.likes")}: {review.review.likes ? review.review.likes.length : 0}
             <div>
               <FavoriteBorderIcon/>
             </div>
           </div>
           }
-          <Card.Text className='mt-2 mb-2'>Author {userName} received {authorsLikes} likes for all reviews</Card.Text>
-          <Card.Text>Date of creation: {review.review.dateCreation && review.review.dateCreation.slice(0, 10)}</Card.Text>
+          <Card.Text className='mt-2 mb-2'>{t("review.total")} {userName}: {authorsLikes}</Card.Text>
+          <Card.Text>{t("review.date")}: {review.review.dateCreation && review.review.dateCreation.slice(0, 10)}</Card.Text>
         </Card.Body>
         </Card>
         </Col>
