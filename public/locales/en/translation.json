@@ -22,7 +22,8 @@
         "admin": "Admin panel",
         "personal": "Personal Area",
         "logout": "Logout",
-        "auth": "Login/Register"
+        "auth": "Login/Register",
+        "menu": "Menu"
     },
     "admin": {
         "name": "Name",

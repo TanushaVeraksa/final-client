@@ -1,0 +1,67 @@
+.app_container {
+    background-color: var(--background-color);
+}
+.app_card {
+    background-color: var(--background-card-color);
+    color: var(--text-color);
+}
+.app_title {
+    color: var(--text-color);
+}
+.app_search{
+    color: var(--text-color);
+    background-color: var(--background-card-color);
+}
+.app_personal {
+    color: var(--text-color);
+}
+.app_form {
+    color: var(--form-text);
+}
+.app_breadcrumbs {
+    color: var(--text-color);
+}
+.css-16vtusx-MuiButtonBase-root-MuiChip-root {
+    color: var(--autocomplete--text-color) !important;
+    background-color: var( --autocomplete--background-color) !important;
+}
+.css-1c2i806-MuiFormLabel-root-MuiInputLabel-root {
+    color: var(--form-text) !important;
+}
+.form-control {
+    background-color: var(--background-card-color);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+.form-select {
+    background-color: var(--background-card-color);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+.app_markdown {
+    background-color: var(--background-card-color);
+    color: var(--text-color);
+}
+.app_list {
+    background-color: var(--background-card-color);
+    color: var(--text-color); 
+    border-color: var(--border-color);
+}
+#combo-box-demo{
+    color: var(--text-color) !important; 
+}
+.MuiInputBase-root {
+    color: var(--text-color) !important; 
+}
+#combo-box-demo {
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+.app_cloud {
+    background-color: var(--background-card-color);
+    color: var(--text-color); 
+}
+.app_auth {
+    background-color: var(--background-card-color);
+    color: var(--text-color); 
+}

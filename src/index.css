@@ -1,0 +1,23 @@
+/*dark theme*/
+
+html[data-theme='dark'] {
+    --background-color: #333333;
+    --background-card-color: #666666;
+    --text-color: #FFFFFF;
+    --form-text: #999999;
+    --autocomplete--text-color: rgba(255, 255, 255, 0.87);
+    --autocomplete--background-color: rgb(149, 142, 142);
+    --border-color: gray;
+}
+
+/*light theme*/
+
+html[data-theme='light'] {
+    --background-color: #FFFFFF;
+    --background-card-color: #FFFFFF;
+    --text-color: #000000;
+    --form-text: #666666;
+    --autocomplete--text-color: rgba(0, 0, 0, 0.87);
+    --autocomplete--background-color: rgba(0, 0, 0, 0.08);
+    --border-color: rgba(0, 0, 0, 0.133);
+}

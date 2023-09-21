@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 function CustomBody() {
   const { t, i18n } = useTranslation();
   return (
-    <Card bg='light' className='px-5 pb-2 m-auto' >
+    <Card className='px-5 pb-2 m-auto app_cloud' >
         <CloudUploadIcon className='m-auto' color="primary" sx={{ fontSize: '5rem' }}/>
         <Card.Text style={{fontSize: '0.8rem'}} className='m-auto'>
           {t("image.drag")}

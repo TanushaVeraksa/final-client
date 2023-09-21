@@ -33,12 +33,13 @@ const Home = observer(() => {
     <Col md={3}>
     <InputGroup>
         <Form.Control
+          className='app_search'
           aria-label="Default"
           aria-describedby="inputGroup-sizing-default"
           onChange={e => setValue(e.target.value)}
         />
-        <InputGroup.Text>
-            <Button onClick={search} variant="outline-secondary"><SearchIcon/></Button>
+        <InputGroup.Text className='app_search'>
+            <Button className='app_search' onClick={search} variant="outline-secondary"><SearchIcon /></Button>
         </InputGroup.Text>
       </InputGroup>
     </Col>
@@ -66,7 +67,7 @@ const Home = observer(() => {
     </Row>
     <Row>
     <Card.Body className="text-center">
-        <Card.Title className='mb-2'>{t("home.last")}</Card.Title>
+        <Card.Title className='mb-2 app_title'>{t("home.last")}</Card.Title>
     </Card.Body>
         {review.lastReviews.map(elem => 
             <ReviewItem key={elem._id} review={elem}/>
@@ -74,7 +75,7 @@ const Home = observer(() => {
     </Row>
     <Row>
     <Card.Body className="text-center">
-        <Card.Title className='mb-2 mt-2'>{t("home.top")}</Card.Title>
+        <Card.Title className='mb-2 mt-2 app_title'>{t("home.top")}</Card.Title>
     </Card.Body>
         {review.topReviews.map(elem => 
             <ReviewItem key={elem._id} review={elem}/>

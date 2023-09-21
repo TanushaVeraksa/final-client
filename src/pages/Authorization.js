@@ -66,7 +66,7 @@ const authorizationGoogle = () => {
       className='d-flex justify-content-center align-items-center'
       style={{height: window.innerHeight - 54, width: '95%'}}
     >
-      <Card className='p-3' style={{width: '80%'}}>
+      <Card className='p-3 app_auth' style={{width: '80%'}}>
             <h3 className='m-auto'>{isLogin ? t("auth.auth") : t("registration.registration")}</h3>
             <Form className='d-flex flex-column'>
               <Row>

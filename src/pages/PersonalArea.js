@@ -100,10 +100,10 @@ const PersonalArea = observer(() => {
         review.setSelectedReview({});
     }
   return (
-    <Container>
+    <Container className='app_personal'>
     {user.isAdmin && <AdminBreadcrumbs/>}
         <Form>
-        <Row className="mb-2">
+        <Row className="mb-1">
         <Form.Group as={Col} md="4" controlId="validationCustom01">
             <Form.Label className="mb-1">{t("personal.title")}</Form.Label>
             <Form.Control
@@ -113,7 +113,7 @@ const PersonalArea = observer(() => {
             />
         </Form.Group>
         <Form.Group as={Col} md="4" controlId="validationCustom02">
-            <Form.Label>{t("personal.group")}</Form.Label>
+            <Form.Label className="mb-1">{t("personal.group")}</Form.Label>
             <Form.Select
                 onChange={e=> setGroup(e.target.value)}
             >
@@ -126,6 +126,7 @@ const PersonalArea = observer(() => {
         <Form.Group as={Col} md="4" controlId="validationCustom02">
             <Form.Label className='mb-1'>{t("personal.tag")}</Form.Label>
             <Autocomplete
+            className="app_form"
             multiple
             id="size-small-standard-multi"
             size="small"
@@ -133,14 +134,13 @@ const PersonalArea = observer(() => {
             freeSolo
             getOptionLabel={(option) => option}
             onChange={(event, newValue) => setTagReview(newValue)}
-            inputValue={inputTag}
-            
+            inputValue={inputTag}   
             onInputChange={(event, newInputValue) => {
                 setInputTag(newInputValue);
             }}
-            
             renderInput={(params) => (
             <TextField
+                className="app_form"
                 {...params}
                 variant="standard"
                 label={t("personal.tagInfo")}
@@ -150,7 +150,7 @@ const PersonalArea = observer(() => {
             />
         </Form.Group>
         </Row>
-        <Row className="mb-2">
+        <Row className="mb-1">
         <Form.Label>{t("personal.piece")}</Form.Label>
         <Form.Group as={Col} md="6" controlId="validationCustom01">
             <Form.Select
@@ -161,7 +161,7 @@ const PersonalArea = observer(() => {
                     <option value={title}>{title}</option>
                 )}
             </Form.Select>
-            <Form.Text>
+            <Form.Text className="app_form">
             {t("personal.info")}
             </Form.Text>
             </Form.Group>
@@ -171,7 +171,7 @@ const PersonalArea = observer(() => {
                 value={piece} 
                 onChange={e=> setPiece(e.target.value)}
             />
-            <Form.Text>
+            <Form.Text className="app_form">
             {t("personal.infoPiece")}
             </Form.Text>
         </Form.Group>
@@ -188,8 +188,8 @@ const PersonalArea = observer(() => {
             />
         </Form.Group>
         <Form.Group as={Col} md="6" controlId="validationCustom01">
-            <Card bg='light' style={{ height: '100%'}}>
-                <ReactMarkdown children={markdown} />
+            <Card className='app_markdown' style={{ height: '100%'}}>
+                <ReactMarkdown className='app_markdown' children={markdown} />
             </Card> 
         </Form.Group>
         </Row>
@@ -220,8 +220,18 @@ const PersonalArea = observer(() => {
         <Row>
             <Col md={3}>
                 <ListGroup>
-                    <ListGroup.Item onClick={openReview} style={{cursor: 'pointer'}}>{t("personal.open")}</ListGroup.Item>
-                    <ListGroup.Item onClick={deleteOneReview} style={{cursor: 'pointer'}}>{t("personal.delete")}</ListGroup.Item>
+                    <ListGroup.Item 
+                        className='app_list'
+                        onClick={openReview} 
+                        style={{cursor: 'pointer'}}>
+                            {t("personal.open")}
+                    </ListGroup.Item>
+                    <ListGroup.Item 
+                        className='app_list'
+                        onClick={deleteOneReview} 
+                        style={{cursor: 'pointer'}}>
+                            {t("personal.delete")}
+                    </ListGroup.Item>
                 </ListGroup>
             </Col>
         <SortReview/>

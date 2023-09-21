@@ -5,6 +5,7 @@ import {observer} from 'mobx-react-lite';
 import { useContext, useEffect } from 'react';
 import { Context } from '.';
 import jwt_decode from 'jwt-decode';
+import './App.css'
 
 const App = observer(() => {
   const {user} = useContext(Context);

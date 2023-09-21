@@ -13,7 +13,7 @@ function ReviewItem({review}) {
     const navigation = useNavigate ();
     return (
         <Col md={3} onClick={() => navigation(REVIEW_ROUTE + '/' + review._id)}>
-            <Card className='m-auto p-2' style={{cursor: 'pointer'}}>
+            <Card className='m-auto p-2 app_card' style={{cursor: 'pointer'}}>
                 <div className='scale' style={{ display: 'inline-block', overflow: 'hidden'}}>
                     <Card.Img 
                         className='rounded img' 

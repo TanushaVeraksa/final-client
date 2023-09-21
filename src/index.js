@@ -6,6 +6,7 @@ import ReviewStore from './store/ReviewStore';
 import CommentStore from './store/CommentStore';
 import TagStore from './store/TagStore';
 import './i18n';
+import './index.css'
 
 export const Context = createContext(null)
 
