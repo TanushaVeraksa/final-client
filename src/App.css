@@ -64,4 +64,8 @@
 .app_auth {
     background-color: var(--background-card-color);
     color: var(--text-color); 
+    border-color: var(--border-color);
+}
+.app_comment {
+    color: var(--text-comment);
 }

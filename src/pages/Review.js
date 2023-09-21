@@ -10,11 +10,14 @@ import Card from 'react-bootstrap/Card';
 import Rating from '@mui/material/Rating';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { fetchOneReview, putRatingReview, checkLike, putLikeReview, countLikes} from '../http/reviewAPI';
+import { fetchOneReview, putRatingReview, checkLike, putLikeReview, countLikes, pieceReviews} from '../http/reviewAPI';
 import { red } from '@mui/material/colors';
 import ReactMarkdown from 'react-markdown';
 import Comment from '../components/Comment';
 import { useTranslation } from 'react-i18next';
+import {NavLink, useNavigate} from 'react-router-dom';
+import { REVIEW_ROUTE } from '../utils/consts';
+
 
 const Review = observer(() => {
   const { t, i18n } = useTranslation();
@@ -25,6 +28,8 @@ const Review = observer(() => {
   const {review} = useContext(Context);
   const [authorsLikes, setAuthorsLikes] = useState(0);
   const [userName, setUserName] = useState('');
+  const [links, setLinks] = useState([]);
+  const navigation = useNavigate();
 
   useEffect(() => {
     fetchOneReview(id).then(data => {
@@ -38,6 +43,9 @@ const Review = observer(() => {
       setAuthorsLikes(data.countLikes)
       setUserName(data.userName)
     })
+    pieceReviews(id).then(data => {
+      setLinks(data)
+    }).catch(err => console.log(err))
   }, [])
 
   const handleRating = (event, newValue) => {
@@ -61,13 +69,14 @@ const Review = observer(() => {
     <Container className = 'mt-4'>
       <Row>
         <Col md={3}>
-        <Image  src={review.review.img} thumbnail /> 
+        <Image className='app_auth' src={review.review.img} thumbnail /> 
         </Col>
         <Col md={7}>
-        <Card style={{ width: '100%' }}>
+        <Card className='app_auth' style={{ width: '100%' }}>
         <Card.Body>
           <Card.Title>{review.review.title}</Card.Title>
-          <Card.Text>Group: {review.review.group}</Card.Text>
+          <Card.Text>{t("personal.group")}: {review.review.group}</Card.Text>
+          <Card.Text>{t("personal.piece")}: {review.review.piece}</Card.Text>
           <div className='d-flex'>
             <Card.Text className='pe-4'>{t("review.rating")}: {value}</Card.Text>
             {user.isAuth ? 

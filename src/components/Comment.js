@@ -47,7 +47,7 @@ const Comment = observer((props) => {
 
     return (
     <Row>
-    <Form.Label className='mb-2'>{t('comment.text')}</Form.Label>
+    <Form.Label className='mb-2 app_title'>{t('comment.text')}</Form.Label>
     {user.isAuth && 
     <>
         <Form.Control
@@ -59,9 +59,9 @@ const Comment = observer((props) => {
     </>
     } 
     {comments.map(comment => 
-    <Card className='mb-2' key={comment._id}>
+    <Card className='mb-2 app_auth' key={comment._id}>
         <Card.Body className='p-2'>
-            <Card.Subtitle className="mb-1 text-muted">{comment.userName}</Card.Subtitle>
+            <Card.Subtitle className="mb-1 app_comment small">{comment.userName}</Card.Subtitle>
             <Card.Text>{comment.message}</Card.Text>
         </Card.Body>
     </Card>

@@ -54,7 +54,7 @@
         "tagInfo": "Select a tag or enter a new",
         "piece": "Piece of Art",
         "info": "Select an existing piece and link it to existing reviews.",
-        "ingoPiece": "Create a new piece.",
+        "infoPiece": "Create a new piece.",
         "description": "Description",
         "grade": "Author's grade",
         "add": "Add",

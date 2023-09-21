@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 
 function ReviewItem({review}) {
     const { t, i18n } = useTranslation();
-    const navigation = useNavigate ();
+    const navigation = useNavigate();
     return (
         <Col md={3} onClick={() => navigation(REVIEW_ROUTE + '/' + review._id)}>
             <Card className='m-auto p-2 app_card' style={{cursor: 'pointer'}}>

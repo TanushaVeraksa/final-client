@@ -21,7 +21,13 @@ const Admin = () => {
     <Container>
       <Row>
       <Col className='m-auto'>
-      <Table striped bordered hover>
+      <Table 
+        responsive
+        striped 
+        bordered 
+        hover 
+        variant={localStorage.getItem('theme')}
+        >
       <thead>
         <tr>
           <th>#</th>

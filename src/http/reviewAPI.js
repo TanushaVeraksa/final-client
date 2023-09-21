@@ -101,4 +101,10 @@ export const searchReview = async(searchString) => {
     return data;
 } 
 
+export const pieceReviews = async(id) => {
+    const {data} = await $host.get('api/piece/reviews', {params: {
+        id:id 
+    }});
+    return data; 
+}
 

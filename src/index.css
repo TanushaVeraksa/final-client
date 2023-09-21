@@ -8,6 +8,7 @@ html[data-theme='dark'] {
     --autocomplete--text-color: rgba(255, 255, 255, 0.87);
     --autocomplete--background-color: rgb(149, 142, 142);
     --border-color: gray;
+    --text-comment:#CCCCCC;
 }
 
 /*light theme*/
@@ -20,4 +21,5 @@ html[data-theme='light'] {
     --autocomplete--text-color: rgba(0, 0, 0, 0.87);
     --autocomplete--background-color: rgba(0, 0, 0, 0.08);
     --border-color: rgba(0, 0, 0, 0.133);
+    --text-comment:#666666c3;
 }
