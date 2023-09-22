@@ -10,14 +10,13 @@ import Card from 'react-bootstrap/Card';
 import Rating from '@mui/material/Rating';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { fetchOneReview, putRatingReview, checkLike, putLikeReview, countLikes, pieceReviews} from '../http/reviewAPI';
+import { fetchOneReview, putRatingReview, checkLike, putLikeReview, countLikes, pieceReviews, getAvarageRating} from '../http/reviewAPI';
 import { red } from '@mui/material/colors';
 import ReactMarkdown from 'react-markdown';
 import Comment from '../components/Comment';
 import { useTranslation } from 'react-i18next';
-import {NavLink, useNavigate} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import { REVIEW_ROUTE } from '../utils/consts';
-import Button from 'react-bootstrap/Button';
 
 const Review = observer(() => {
   const { t, i18n } = useTranslation();
@@ -29,7 +28,7 @@ const Review = observer(() => {
   const [authorsLikes, setAuthorsLikes] = useState(0);
   const [userName, setUserName] = useState('');
   const [links, setLinks] = useState([]);
-  const navigation = useNavigate();
+  const [rating, setRating] = useState(0);
 
   useEffect(() => {
     fetchOneReview(id).then(data => {
@@ -47,6 +46,10 @@ const Review = observer(() => {
       setLinks(data)
     }).catch(err => console.log(err))
   }, [id])
+
+  useEffect(() => {
+    getAvarageRating(id).then(data => setRating(data))
+  }, [id, rating, value])
 
   const handleRating = (event, newValue) => {
     setValue(newValue);
@@ -118,7 +121,7 @@ const Review = observer(() => {
       </Row>
       <Row>
       <Row>
-      <Card.Title className='mb-2 app_title'>{t("piece.message")}:</Card.Title>
+      {links.length > 0 ? <Card.Title className='mb-2 mt-2 app_title'>{t("piece.message")} {t("piece.rating")} {rating} :</Card.Title> : <></>}
       {links.map(elem => 
            <NavLink to={REVIEW_ROUTE + '/' + elem}>
               {window.location.href.split('/').slice(0,4).join('/') + '/' + elem}

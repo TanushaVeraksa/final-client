@@ -72,6 +72,7 @@
         "select": "Select Files"
     },
     "piece": {
-        "message": "Reviews with the same piece of art"
+        "message": "Reviews with the same piece of art",
+        "rating": "and avarage rating"
     }
 }

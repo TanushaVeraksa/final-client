@@ -108,3 +108,9 @@ export const pieceReviews = async(id) => {
     return data; 
 }
 
+export const getAvarageRating = async(id) => {
+    const {data} = await $host.get('api/piece/rating', {params: {
+        id:id 
+    }});
+    return data; 
+}
