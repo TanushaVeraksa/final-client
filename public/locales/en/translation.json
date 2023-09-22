@@ -70,5 +70,8 @@
         "drag": "Drag and Drop Files Here",
         "or": "Or",
         "select": "Select Files"
+    },
+    "piece": {
+        "message": "Reviews with the same piece of art"
     }
 }

@@ -17,7 +17,7 @@ import Comment from '../components/Comment';
 import { useTranslation } from 'react-i18next';
 import {NavLink, useNavigate} from 'react-router-dom';
 import { REVIEW_ROUTE } from '../utils/consts';
-
+import Button from 'react-bootstrap/Button';
 
 const Review = observer(() => {
   const { t, i18n } = useTranslation();
@@ -46,7 +46,7 @@ const Review = observer(() => {
     pieceReviews(id).then(data => {
       setLinks(data)
     }).catch(err => console.log(err))
-  }, [])
+  }, [id])
 
   const handleRating = (event, newValue) => {
     setValue(newValue);
@@ -115,6 +115,16 @@ const Review = observer(() => {
         </Card.Body>
         </Card>
         </Col>
+      </Row>
+      <Row>
+      <Row>
+      <Card.Title className='mb-2 app_title'>{t("piece.message")}:</Card.Title>
+      {links.map(elem => 
+           <NavLink to={REVIEW_ROUTE + '/' + elem}>
+              {window.location.href.split('/').slice(0,4).join('/') + '/' + elem}
+            </NavLink>
+          )}
+      </Row>
       </Row>
        <Comment review = {id}/>
     </Container>
