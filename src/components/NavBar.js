@@ -15,6 +15,7 @@ import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import {useTheme} from '../hook/theme'
+import Cookies from 'js-cookie';
 
 const locales = {
   en: { title: 'EN' },
@@ -78,6 +79,7 @@ const NavBar = observer(() => {
     user.setUser({})
     user.setIsAuth(false);
     user.setIsAdmin(false);
+    Cookies.remove('user')
     localStorage.removeItem('token');
     logoutGithub().then(data => console.log(data));
     logoutGoogle().then(data => console.log(data));

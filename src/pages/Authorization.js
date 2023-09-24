@@ -14,6 +14,7 @@ import { Context } from '..';
 import GoogleIcon from '@mui/icons-material/Google';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { useTranslation } from 'react-i18next';
+import Cookies from 'js-cookie';
 
 const Authorization = observer(() => {
   const { t, i18n } = useTranslation();
@@ -48,16 +49,21 @@ const authorizationGithub = () => {
   getGithubUser().then(data => {
     user.setUser(data);
     user.setIsAuth(true);
+
 })
   window.open('https://final-server-lyart.vercel.app/api/github');
 }
 
 const authorizationGoogle = () => {
-    getGoogleUser().then(data => {
+  setTimeout(() => {
+    const cookie = Cookies.get('user');
+    console.log(cookie)
+    getGoogleUser(cookie).then(data => {
       user.setUser(data);
       user.setIsAuth(true);
   })
-  
+  }, 2000)
+    
   window.open('https://final-server-lyart.vercel.app/api/google');
 }
 

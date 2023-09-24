@@ -30,8 +30,10 @@ export const logoutGoogle = async() => {
     return data;
 }
 
-export const getGoogleUser = async() => {
-    const {data} = await $host.get('/api/google/user')
+export const getGoogleUser = async(cookie) => {
+    const {data} = await $host.get('/api/google/user', {params: {
+        cookie: cookie
+    }})
     localStorage.setItem('token', data.token)
     return jwt_decode(data.token);
 }

@@ -1,3 +1,7 @@
+#root {
+    background-size: cover;
+    min-height: 100vh;
+}
 .app_container {
     background-color: var(--background-color);
 }
